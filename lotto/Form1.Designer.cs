@@ -29,14 +29,14 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle71 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle72 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea15 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend15 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series15 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle73 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle74 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle75 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -54,12 +54,16 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.button5 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.maindataBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.lottoDataSet = new lotto.lottoDataSet();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -85,10 +89,7 @@
             this.listBox3 = new System.Windows.Forms.ListBox();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.lottoDataSet = new lotto.lottoDataSet();
-            this.maindataBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.maindataTableAdapter = new lotto.lottoDataSetTableAdapters.maindataTableAdapter();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -102,20 +103,20 @@
             this.tabPage2.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.maindataBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lottoDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.lottoDataSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.maindataBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridView1
             // 
             this.dataGridView1.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle71.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle71;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
             this.dataGridView1.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -131,11 +132,13 @@
             this.Column10,
             this.Column13});
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(3, 3);
+            this.dataGridView1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnKeystroke;
+            this.dataGridView1.Location = new System.Drawing.Point(2, 2);
+            this.dataGridView1.Margin = new System.Windows.Forms.Padding(2);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.RowTemplate.Height = 25;
-            this.dataGridView1.Size = new System.Drawing.Size(955, 293);
+            this.dataGridView1.Size = new System.Drawing.Size(715, 234);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             // 
@@ -206,8 +209,8 @@
             // Column9
             // 
             this.Column9.DataPropertyName = "nums";
-            dataGridViewCellStyle72.ForeColor = System.Drawing.Color.Blue;
-            this.Column9.DefaultCellStyle = dataGridViewCellStyle72;
+            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.Blue;
+            this.Column9.DefaultCellStyle = dataGridViewCellStyle7;
             this.Column9.HeaderText = "特別號";
             this.Column9.Name = "Column9";
             this.Column9.ReadOnly = true;
@@ -235,19 +238,21 @@
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
+            this.tabControl1.Margin = new System.Windows.Forms.Padding(2);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(975, 733);
+            this.tabControl1.Size = new System.Drawing.Size(779, 586);
             this.tabControl1.TabIndex = 1;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
             // tabPage1
             // 
             this.tabPage1.Controls.Add(this.tableLayoutPanel1);
-            this.tabPage1.Location = new System.Drawing.Point(4, 25);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(967, 704);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(2);
+            this.tabPage1.Size = new System.Drawing.Size(723, 560);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "歷史資料";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -259,47 +264,62 @@
             this.tableLayoutPanel1.Controls.Add(this.dataGridView1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.panel1, 0, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(2, 2);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 42.83668F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 57.16332F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(961, 698);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(719, 556);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
             // panel1
             // 
             this.panel1.Controls.Add(this.splitContainer1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(3, 302);
+            this.panel1.Location = new System.Drawing.Point(2, 240);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(955, 393);
+            this.panel1.Size = new System.Drawing.Size(715, 314);
             this.panel1.TabIndex = 1;
             // 
             // splitContainer1
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1.Margin = new System.Windows.Forms.Padding(2);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.button5);
             this.splitContainer1.Panel1.Controls.Add(this.button3);
             this.splitContainer1.Panel1.Controls.Add(this.button2);
             // 
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.chart1);
-            this.splitContainer1.Size = new System.Drawing.Size(955, 393);
-            this.splitContainer1.SplitterDistance = 144;
-            this.splitContainer1.SplitterWidth = 8;
+            this.splitContainer1.Size = new System.Drawing.Size(715, 314);
+            this.splitContainer1.SplitterDistance = 107;
+            this.splitContainer1.SplitterWidth = 6;
             this.splitContainer1.TabIndex = 3;
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(19, 97);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(75, 23);
+            this.button5.TabIndex = 3;
+            this.button5.Text = "更新資料庫";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(25, 68);
+            this.button3.Location = new System.Drawing.Point(19, 54);
+            this.button3.Margin = new System.Windows.Forms.Padding(2);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(100, 27);
+            this.button3.Size = new System.Drawing.Size(75, 22);
             this.button3.TabIndex = 2;
             this.button3.Text = "平均值曲線";
             this.button3.UseVisualStyleBackColor = true;
@@ -307,9 +327,10 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(25, 18);
+            this.button2.Location = new System.Drawing.Point(19, 14);
+            this.button2.Margin = new System.Windows.Forms.Padding(2);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(86, 27);
+            this.button2.Size = new System.Drawing.Size(64, 22);
             this.button2.TabIndex = 1;
             this.button2.Text = "清除曲線";
             this.button2.UseVisualStyleBackColor = true;
@@ -317,28 +338,30 @@
             // 
             // chart1
             // 
-            chartArea15.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea15);
+            chartArea2.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea2);
             this.chart1.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend15.Name = "Legend1";
-            this.chart1.Legends.Add(legend15);
+            legend2.Name = "Legend1";
+            this.chart1.Legends.Add(legend2);
             this.chart1.Location = new System.Drawing.Point(0, 0);
+            this.chart1.Margin = new System.Windows.Forms.Padding(2);
             this.chart1.Name = "chart1";
-            series15.ChartArea = "ChartArea1";
-            series15.Legend = "Legend1";
-            series15.Name = "Series1";
-            this.chart1.Series.Add(series15);
-            this.chart1.Size = new System.Drawing.Size(803, 393);
+            series2.ChartArea = "ChartArea1";
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            this.chart1.Series.Add(series2);
+            this.chart1.Size = new System.Drawing.Size(602, 314);
             this.chart1.TabIndex = 0;
             this.chart1.Text = "chart1";
             // 
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.tableLayoutPanel2);
-            this.tabPage2.Location = new System.Drawing.Point(4, 25);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(967, 704);
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(2);
+            this.tabPage2.Size = new System.Drawing.Size(771, 560);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "統計預測";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -352,14 +375,15 @@
             this.tableLayoutPanel2.Controls.Add(this.groupBox3, 0, 2);
             this.tableLayoutPanel2.Controls.Add(this.groupBox4, 0, 3);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(2, 2);
+            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 4;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 250F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 200F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 120F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 120F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(961, 698);
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 96F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 96F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(767, 556);
             this.tableLayoutPanel2.TabIndex = 3;
             // 
             // groupBox1
@@ -375,46 +399,75 @@
             this.groupBox1.Controls.Add(this.dataGridView2);
             this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.Location = new System.Drawing.Point(3, 3);
+            this.groupBox1.Location = new System.Drawing.Point(2, 2);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(955, 244);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
+            this.groupBox1.Size = new System.Drawing.Size(763, 196);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "均值，眾數";
             // 
+            // comboBox2
+            // 
+            this.comboBox2.DataSource = this.maindataBindingSource;
+            this.comboBox2.DisplayMember = "date";
+            this.comboBox2.Font = new System.Drawing.Font("新細明體", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Location = new System.Drawing.Point(612, 80);
+            this.comboBox2.Margin = new System.Windows.Forms.Padding(2);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(92, 23);
+            this.comboBox2.TabIndex = 10;
+            // 
+            // maindataBindingSource
+            // 
+            this.maindataBindingSource.DataMember = "maindata";
+            this.maindataBindingSource.DataSource = this.lottoDataSet;
+            this.maindataBindingSource.Sort = "date desc";
+            // 
+            // lottoDataSet
+            // 
+            this.lottoDataSet.DataSetName = "lottoDataSet";
+            this.lottoDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(933, 141);
+            this.label4.Location = new System.Drawing.Point(700, 113);
+            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(22, 15);
+            this.label4.Size = new System.Drawing.Size(17, 12);
             this.label4.TabIndex = 9;
             this.label4.Text = "碼";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(774, 103);
+            this.label3.Location = new System.Drawing.Point(580, 82);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(37, 15);
+            this.label3.Size = new System.Drawing.Size(29, 12);
             this.label3.TabIndex = 7;
             this.label3.Text = "日期";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(773, 70);
+            this.label2.Location = new System.Drawing.Point(580, 56);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(37, 15);
+            this.label2.Size = new System.Drawing.Size(29, 12);
             this.label2.TabIndex = 6;
             this.label2.Text = "號碼";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(774, 141);
+            this.label1.Location = new System.Drawing.Point(580, 113);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(97, 15);
+            this.label1.Size = new System.Drawing.Size(77, 12);
             this.label1.TabIndex = 5;
             this.label1.Text = "取累積頻率前";
             // 
@@ -433,23 +486,26 @@
             "8",
             "9",
             "10"});
-            this.comboBox1.Location = new System.Drawing.Point(877, 133);
+            this.comboBox1.Location = new System.Drawing.Point(658, 106);
+            this.comboBox1.Margin = new System.Windows.Forms.Padding(2);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(55, 23);
+            this.comboBox1.Size = new System.Drawing.Size(42, 20);
             this.comboBox1.TabIndex = 4;
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(816, 60);
+            this.textBox1.Location = new System.Drawing.Point(612, 48);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(2);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(118, 25);
+            this.textBox1.Size = new System.Drawing.Size(90, 22);
             this.textBox1.TabIndex = 3;
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(776, 177);
+            this.button4.Location = new System.Drawing.Point(582, 142);
+            this.button4.Margin = new System.Windows.Forms.Padding(2);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(118, 35);
+            this.button4.Size = new System.Drawing.Size(88, 28);
             this.button4.TabIndex = 2;
             this.button4.Text = "開始計算";
             this.button4.UseVisualStyleBackColor = true;
@@ -460,8 +516,8 @@
             this.dataGridView2.AllowUserToAddRows = false;
             this.dataGridView2.AllowUserToDeleteRows = false;
             this.dataGridView2.AllowUserToOrderColumns = true;
-            dataGridViewCellStyle73.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.dataGridView2.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle73;
+            dataGridViewCellStyle8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.dataGridView2.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle8;
             this.dataGridView2.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -474,11 +530,12 @@
             this.Column20,
             this.Column21});
             this.dataGridView2.Dock = System.Windows.Forms.DockStyle.Left;
-            this.dataGridView2.Location = new System.Drawing.Point(3, 21);
+            this.dataGridView2.Location = new System.Drawing.Point(2, 17);
+            this.dataGridView2.Margin = new System.Windows.Forms.Padding(2);
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.ReadOnly = true;
             this.dataGridView2.RowTemplate.Height = 25;
-            this.dataGridView2.Size = new System.Drawing.Size(763, 220);
+            this.dataGridView2.Size = new System.Drawing.Size(572, 177);
             this.dataGridView2.TabIndex = 1;
             // 
             // Column14
@@ -532,8 +589,8 @@
             // Column20
             // 
             this.Column20.DataPropertyName = "avgs";
-            dataGridViewCellStyle74.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.Column20.DefaultCellStyle = dataGridViewCellStyle74;
+            dataGridViewCellStyle9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.Column20.DefaultCellStyle = dataGridViewCellStyle9;
             this.Column20.HeaderText = "特別號";
             this.Column20.Name = "Column20";
             this.Column20.ReadOnly = true;
@@ -542,8 +599,8 @@
             // Column21
             // 
             this.Column21.DataPropertyName = "tavg";
-            dataGridViewCellStyle75.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.Column21.DefaultCellStyle = dataGridViewCellStyle75;
+            dataGridViewCellStyle10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.Column21.DefaultCellStyle = dataGridViewCellStyle10;
             this.Column21.HeaderText = "總平均";
             this.Column21.Name = "Column21";
             this.Column21.ReadOnly = true;
@@ -551,9 +608,10 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(774, 25);
+            this.button1.Location = new System.Drawing.Point(580, 20);
+            this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(118, 28);
+            this.button1.Size = new System.Drawing.Size(88, 22);
             this.button1.TabIndex = 0;
             this.button1.Text = "update average";
             this.button1.UseVisualStyleBackColor = true;
@@ -563,9 +621,11 @@
             // 
             this.groupBox2.Controls.Add(this.listBox1);
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox2.Location = new System.Drawing.Point(3, 253);
+            this.groupBox2.Location = new System.Drawing.Point(2, 202);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(955, 202);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(2);
+            this.groupBox2.Size = new System.Drawing.Size(763, 160);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "累積頻率";
@@ -577,19 +637,22 @@
             this.listBox1.Font = new System.Drawing.Font("Symbol", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.listBox1.FormattingEnabled = true;
             this.listBox1.HorizontalScrollbar = true;
-            this.listBox1.ItemHeight = 24;
-            this.listBox1.Location = new System.Drawing.Point(3, 21);
+            this.listBox1.ItemHeight = 20;
+            this.listBox1.Location = new System.Drawing.Point(2, 17);
+            this.listBox1.Margin = new System.Windows.Forms.Padding(2);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(949, 178);
+            this.listBox1.Size = new System.Drawing.Size(759, 141);
             this.listBox1.TabIndex = 0;
             // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.listBox2);
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox3.Location = new System.Drawing.Point(3, 461);
+            this.groupBox3.Location = new System.Drawing.Point(2, 366);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(955, 114);
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(2);
+            this.groupBox3.Size = new System.Drawing.Size(763, 92);
             this.groupBox3.TabIndex = 3;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "特別號累積頻率";
@@ -601,19 +664,22 @@
             this.listBox2.Font = new System.Drawing.Font("Symbol", 12F);
             this.listBox2.FormattingEnabled = true;
             this.listBox2.HorizontalScrollbar = true;
-            this.listBox2.ItemHeight = 24;
-            this.listBox2.Location = new System.Drawing.Point(3, 21);
+            this.listBox2.ItemHeight = 20;
+            this.listBox2.Location = new System.Drawing.Point(2, 17);
+            this.listBox2.Margin = new System.Windows.Forms.Padding(2);
             this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(949, 90);
+            this.listBox2.Size = new System.Drawing.Size(759, 73);
             this.listBox2.TabIndex = 0;
             // 
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.listBox3);
             this.groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox4.Location = new System.Drawing.Point(3, 581);
+            this.groupBox4.Location = new System.Drawing.Point(2, 462);
+            this.groupBox4.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(955, 114);
+            this.groupBox4.Padding = new System.Windows.Forms.Padding(2);
+            this.groupBox4.Size = new System.Drawing.Size(763, 92);
             this.groupBox4.TabIndex = 4;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "前幾碼加總";
@@ -626,10 +692,11 @@
             this.listBox3.Font = new System.Drawing.Font("Symbol", 12F);
             this.listBox3.FormattingEnabled = true;
             this.listBox3.HorizontalScrollbar = true;
-            this.listBox3.ItemHeight = 24;
-            this.listBox3.Location = new System.Drawing.Point(3, 21);
+            this.listBox3.ItemHeight = 20;
+            this.listBox3.Location = new System.Drawing.Point(2, 17);
+            this.listBox3.Margin = new System.Windows.Forms.Padding(2);
             this.listBox3.Name = "listBox3";
-            this.listBox3.Size = new System.Drawing.Size(949, 90);
+            this.listBox3.Size = new System.Drawing.Size(759, 73);
             this.listBox3.TabIndex = 0;
             // 
             // contextMenuStrip1
@@ -638,47 +705,26 @@
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem1});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(175, 30);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(143, 26);
             this.contextMenuStrip1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.contextMenuStrip1_MouseClick);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(174, 26);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(142, 22);
             this.toolStripMenuItem1.Text = "產生所有序列";
-            // 
-            // lottoDataSet
-            // 
-            this.lottoDataSet.DataSetName = "lottoDataSet";
-            this.lottoDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // maindataBindingSource
-            // 
-            this.maindataBindingSource.DataMember = "maindata";
-            this.maindataBindingSource.DataSource = this.lottoDataSet;
-            this.maindataBindingSource.Sort = "date desc";
             // 
             // maindataTableAdapter
             // 
             this.maindataTableAdapter.ClearBeforeFill = true;
             // 
-            // comboBox2
-            // 
-            this.comboBox2.DataSource = this.maindataBindingSource;
-            this.comboBox2.DisplayMember = "date";
-            this.comboBox2.Font = new System.Drawing.Font("新細明體", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(816, 100);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(121, 26);
-            this.comboBox2.TabIndex = 10;
-            // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(975, 733);
+            this.ClientSize = new System.Drawing.Size(779, 586);
             this.Controls.Add(this.tabControl1);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "lotto";
@@ -697,13 +743,13 @@
             this.tableLayoutPanel2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.maindataBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lottoDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             this.contextMenuStrip1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.lottoDataSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.maindataBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -761,6 +807,7 @@
         private System.Windows.Forms.BindingSource maindataBindingSource;
         private lottoDataSetTableAdapters.maindataTableAdapter maindataTableAdapter;
         private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.Button button5;
     }
 }
 

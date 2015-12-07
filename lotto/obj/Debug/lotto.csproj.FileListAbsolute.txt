@@ -23,3 +23,19 @@ D:\VSProjects\lotto\lotto\lotto\obj\Debug\lotto.Form2.resources
 D:\VSProjects\lotto\lotto\lotto\bin\Debug\lotto.mdf
 D:\VSProjects\lotto\lotto\lotto\bin\Debug\lotto_log.ldf
 D:\VSProjects\lotto\lotto\lotto\obj\Debug\lotto.csprojResolveAssemblyReference.cache
+C:\Users\jack.yang\Documents\Visual Studio 2015\Projects\lotto\lotto\lotto\bin\Debug\lotto.exe.config
+C:\Users\jack.yang\Documents\Visual Studio 2015\Projects\lotto\lotto\lotto\obj\Debug\lotto.exe
+C:\Users\jack.yang\Documents\Visual Studio 2015\Projects\lotto\lotto\lotto\obj\Debug\lotto.pdb
+C:\Users\jack.yang\Documents\Visual Studio 2015\Projects\lotto\lotto\lotto\bin\Debug\lotto.mdf
+C:\Users\jack.yang\Documents\Visual Studio 2015\Projects\lotto\lotto\lotto\bin\Debug\lotto_log.ldf
+C:\Users\jack.yang\Documents\Visual Studio 2015\Projects\lotto\lotto\lotto\bin\Debug\lotto.exe
+C:\Users\jack.yang\Documents\Visual Studio 2015\Projects\lotto\lotto\lotto\bin\Debug\lotto.pdb
+C:\Users\jack.yang\Documents\Visual Studio 2015\Projects\lotto\lotto\lotto\bin\Debug\RDotNet.dll
+C:\Users\jack.yang\Documents\Visual Studio 2015\Projects\lotto\lotto\lotto\bin\Debug\RDotNet.NativeLibrary.dll
+C:\Users\jack.yang\Documents\Visual Studio 2015\Projects\lotto\lotto\lotto\bin\Debug\RDotNet.xml
+C:\Users\jack.yang\Documents\Visual Studio 2015\Projects\lotto\lotto\lotto\bin\Debug\RDotNet.NativeLibrary.xml
+C:\Users\jack.yang\Documents\Visual Studio 2015\Projects\lotto\lotto\lotto\obj\Debug\lotto.csprojResolveAssemblyReference.cache
+C:\Users\jack.yang\Documents\Visual Studio 2015\Projects\lotto\lotto\lotto\obj\Debug\lotto.Form1.resources
+C:\Users\jack.yang\Documents\Visual Studio 2015\Projects\lotto\lotto\lotto\obj\Debug\lotto.Form2.resources
+C:\Users\jack.yang\Documents\Visual Studio 2015\Projects\lotto\lotto\lotto\obj\Debug\lotto.Properties.Resources.resources
+C:\Users\jack.yang\Documents\Visual Studio 2015\Projects\lotto\lotto\lotto\obj\Debug\lotto.csproj.GenerateResource.Cache
