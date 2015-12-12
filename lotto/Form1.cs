@@ -50,12 +50,12 @@ namespace lotto
 
         private void uptAvg()
         {
-            updateAvg(maintab);
+            updateAvg(ref maintab);
             sdp.Update(maintab);
             MessageBox.Show("OK");
         }
          
-        private void updateAvg(DataTable dtb)
+        private void updateAvg(ref DataTable dtb)
         {
             for (int i = 0; i < dtb.Rows.Count; i++)
             {
@@ -353,5 +353,19 @@ namespace lotto
             }
         }
 
+        private void button5_Click(object sender, EventArgs e)
+        {
+            DateTime dt_last = Convert.ToDateTime((comboBox2.Items[0] as DataRowView).Row.ItemArray[0]);
+            DateTime qryDate;
+            if (dt_last.DayOfWeek ==  DayOfWeek.Tuesday)
+            {
+                qryDate = dt_last.AddDays(3);
+            }
+            else if (dt_last.DayOfWeek == DayOfWeek.Friday)
+            {
+                qryDate = dt_last.AddDays(4);
+            }
+
+        }
     }
 }
