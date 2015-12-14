@@ -10,6 +10,9 @@ using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Windows.Forms.DataVisualization.Charting;
 using RDotNet;
+using System.Net;
+using System.IO;
+using System.Web.Script.Serialization;
 
 namespace lotto
 {
@@ -31,7 +34,10 @@ namespace lotto
             this.Top = 5;
             getMainTable();
             dataGridView1.DataSource = maintab;
-            
+            var dts = maintab.AsEnumerable()
+                .Select(c => c.Field<DateTime>("date"))
+                .OrderByDescending(ody => ody);
+            comboBox2.DataSource = dts.ToList();
         }
         DataTable maintab = new DataTable();
         SqlDataAdapter sdp;
@@ -54,7 +60,7 @@ namespace lotto
             sdp.Update(maintab);
             MessageBox.Show("OK");
         }
-         
+
         private void updateAvg(ref DataTable dtb)
         {
             for (int i = 0; i < dtb.Rows.Count; i++)
@@ -62,23 +68,23 @@ namespace lotto
                 if (string.IsNullOrEmpty(dtb.Rows[i]["avg"].ToString()))
                 {
                     dtb.Rows[i].SetModified();
-                    dtb.Rows[i]["avg"] =Math.Round((double)(int.Parse(dtb.Rows[i]["num1"].ToString()) + int.Parse(dtb.Rows[i]["num2"].ToString()) + int.Parse(dtb.Rows[i]["num3"].ToString()) + int.Parse(dtb.Rows[i]["num4"].ToString()) + int.Parse(dtb.Rows[i]["num5"].ToString()) + int.Parse(dtb.Rows[i]["num6"].ToString())) / 6);
+                    dtb.Rows[i]["avg"] = Math.Round((double)(int.Parse(dtb.Rows[i]["num1"].ToString()) + int.Parse(dtb.Rows[i]["num2"].ToString()) + int.Parse(dtb.Rows[i]["num3"].ToString()) + int.Parse(dtb.Rows[i]["num4"].ToString()) + int.Parse(dtb.Rows[i]["num5"].ToString()) + int.Parse(dtb.Rows[i]["num6"].ToString())) / 6);
                     List<int> num = new List<int>();
                     for (int j = 2; j < 8; j++)
                     {
                         num.Add(int.Parse(dtb.Rows[i][j].ToString()));
                     }
-                    int big=0, small = 0;
+                    int big = 0, small = 0;
                     getminmax(num, ref big, ref small);
                     //dtb.Rows[i]["min"] = small;
                     //dtb.Rows[i]["max"] = big;
                     dtb.Rows[i]["range"] = big - small;
-                    
+
                 }
             }
         }
 
-        private void getminmax(List<int> bags,ref int max,ref int min)
+        private void getminmax(List<int> bags, ref int max, ref int min)
         {
             int big = 0;
             int small = 50;
@@ -86,7 +92,7 @@ namespace lotto
             {
                 if (a > big)
                     big = a;
-                if (a<small)
+                if (a < small)
                     small = a;
             }
             max = big;
@@ -104,12 +110,12 @@ namespace lotto
             if ((sender as TabControl).SelectedTab.Text.Equals("統計預測"))
             {
                 //var avg1= maintab.AsEnumerable().Average(d => (int)d["num1"]);
-                
+
                 sdp.SelectCommand.CommandText = "select A.* ,(A.avg1+A.avg2+A.avg3+A.avg4+A.avg5+A.avg6)/6 tavg from ( select  avg(num1) avg1,avg(num2) avg2,avg(num3) avg3,avg(num4) avg4,avg(num5) avg5,avg(num6) avg6,avg(nums) avgs from maindata) A";
                 sdp.Fill(tmpdtb);
                 maxAppearNum(ref tmpdtb);
                 dataGridView2.DataSource = tmpdtb;
-                
+
                 setGridViewHeader();
             }
         }
@@ -158,7 +164,7 @@ namespace lotto
                 dr3.SetField(i - 1, grp.ElementAt(1).key.pp1);
                 dr4.SetField(i - 1, grp.ElementAt(1).cnt);
             }
-            
+
             table.Rows.Add(dr1);
             table.Rows.Add(dr2);
             table.Rows.Add(dr3);
@@ -168,20 +174,20 @@ namespace lotto
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex == -1 || e.RowIndex >= dataGridView1.RowCount-1) return;
-            int[] s1 = new int[6]; 
+            if (e.RowIndex == -1 || e.RowIndex >= dataGridView1.RowCount - 1) return;
+            int[] s1 = new int[6];
             for (int i = 2; i < 8; i++)
             {
-                s1[i - 2] = Convert.ToInt16( dataGridView1.Rows[e.RowIndex].Cells[i].Value);
+                s1[i - 2] = Convert.ToInt16(dataGridView1.Rows[e.RowIndex].Cells[i].Value);
             }
-            setChartView(dataGridView1.Rows[e.RowIndex].Cells[1].FormattedValue.ToString(),s1);
+            setChartView(dataGridView1.Rows[e.RowIndex].Cells[1].FormattedValue.ToString(), s1);
         }
 
-        private void setChartView(string date,int[] array)
+        private void setChartView(string date, int[] array)
         {
             Series series1 = new Series(date, 50);
             Random rnd = new Random(DateTime.Now.Second);
-            series1.Color =  ColorTranslator.FromWin32(rnd.Next());
+            series1.Color = ColorTranslator.FromWin32(rnd.Next());
             series1.ChartType = SeriesChartType.Line;
             if (array.Length < 7)
                 series1.IsValueShownAsLabel = true;
@@ -190,7 +196,7 @@ namespace lotto
             {
                 series1.Points.AddXY(index, array[index]);
             }
-            if (this.chart1.Series.IndexOf(date)==-1)
+            if (this.chart1.Series.IndexOf(date) == -1)
                 this.chart1.Series.Add(series1);
             //this.chart1.Titles.Add("");
         }
@@ -218,7 +224,7 @@ namespace lotto
             {
                 MessageBox.Show("請用ctrl+滑鼠左鍵選兩筆資料作為計算區間");
                 return;
-                
+
             }
             var sdata = maintab.AsEnumerable()
                      .Where(dr => dr.Field<DateTime>("date") >= sd && dr.Field<DateTime>("date") <= ed)
@@ -240,14 +246,14 @@ namespace lotto
             }
             else
             {
-                string[] ary=null;
+                string[] ary = null;
                 if (!string.IsNullOrEmpty(comboBox2.Text.Trim()))
                 {
-                   //DataRow[] dr = maintab.Select("date='#" + textBox2.Text.Trim() + "#'");
+                    //DataRow[] dr = maintab.Select("date='#" + textBox2.Text.Trim() + "#'");
                     var sdata = maintab.AsEnumerable()
                     .Where(dr => dr.Field<DateTime>("date") == Convert.ToDateTime(comboBox2.Text.Trim()))
-                    .Select(o => new {num1 = o.Field<int>("num1").ToString(), num2 = o.Field<int>("num2").ToString(), num3=o.Field<int>("num3").ToString(), num4=o.Field<int>("num4").ToString(), num5=o.Field<int>("num5").ToString(), num6=o.Field<int>("num6").ToString() });
-                   foreach (var row in sdata)
+                    .Select(o => new { num1 = o.Field<int>("num1").ToString(), num2 = o.Field<int>("num2").ToString(), num3 = o.Field<int>("num3").ToString(), num4 = o.Field<int>("num4").ToString(), num5 = o.Field<int>("num5").ToString(), num6 = o.Field<int>("num6").ToString() });
+                    foreach (var row in sdata)
                     {
                         ary = new string[6];
                         ary[0] = row.num1;
@@ -264,14 +270,15 @@ namespace lotto
                     {
                         ary = textBox1.Text.Split(new char[] { ',' });
                     }
-                    else {
+                    else
+                    {
                         ary = textBox1.Text.Split(new char[] { '	' });
                     }
-                    
+
                 }
 
                 Dictionary<int, Dictionary<int, int>> serial = agg.getBagData();
-                
+
                 IEnumerable<KeyValuePair<int, Dictionary<int, int>>> ss = serial.Where(p => ary.Contains(p.Key.ToString())).ToList();
                 listBox1.Items.AddRange(addUIData(ss).ToArray());
 
@@ -292,10 +299,10 @@ namespace lotto
         private List<string> addUIData(IEnumerable<KeyValuePair<int, Dictionary<int, int>>> serial)
         {
             List<string> outstr = new List<string>();
-            
+
             foreach (var item in serial.OrderBy(r => r.Key))
             {
-                int looptimes = string.IsNullOrEmpty(comboBox1.Text)? 0: int.Parse(comboBox1.Text);
+                int looptimes = string.IsNullOrEmpty(comboBox1.Text) ? 0 : int.Parse(comboBox1.Text);
                 var s1 = item.Value.OrderByDescending(o => o.Value);
                 string cnt = "";
                 foreach (var i1 in s1)
@@ -322,13 +329,13 @@ namespace lotto
         private void sumColumn()
         {
             string tmp = "";
-            foreach(KeyValuePair<int,int> k in summary.OrderByDescending(p=>p.Value))
+            foreach (KeyValuePair<int, int> k in summary.OrderByDescending(p => p.Value))
             {
                 //tmp += (k.Key.ToString("00") + "(" + k.Value.ToString("00") + "), ");
                 tmp += (k.Key.ToString("00") + ",");
             }
-            if (tmp.Length>0)
-                listBox3.Items.Add(tmp.Substring(0,tmp.Length-1));
+            if (tmp.Length > 0)
+                listBox3.Items.Add(tmp.Substring(0, tmp.Length - 1));
         }
 
         private void contextMenuStrip1_MouseClick(object sender, MouseEventArgs e)
@@ -346,26 +353,81 @@ namespace lotto
                         for (int i = 2; i <= 8; i++)
                             nextserial.Add(dr[0][i].ToString().Length == 1 ? "0" + dr[0][i].ToString() : dr[0][i].ToString());
                     }
-                    
+
                 }
-                Form2 fm = new Form2(listBox3.Items[0].ToString(),nextserial);
+                Form2 fm = new Form2(listBox3.Items[0].ToString(), nextserial);
                 fm.Show();
             }
         }
 
         private void button5_Click(object sender, EventArgs e)
         {
-            DateTime dt_last = Convert.ToDateTime((comboBox2.Items[0] as DataRowView).Row.ItemArray[0]);
-            DateTime qryDate;
-            if (dt_last.DayOfWeek ==  DayOfWeek.Tuesday)
+            List<string> _date = targetDate();
+            string success = "";
+            string fail = "";
+            Cursor = Cursors.WaitCursor;
+            foreach (string sd in _date)
             {
-                qryDate = dt_last.AddDays(3);
+                string url = @"http://jigang-xitun.rhcloud.com/date/" + sd;
+                try {
+                    getfromJson(url);
+                    success += sd + " " ;
+                }
+                catch (Exception err)
+                {
+                    fail += sd + " ";
+                    MessageBox.Show("更新"+ sd + "失敗，錯誤訊息:" +err.Message);
+                }
             }
-            else if (dt_last.DayOfWeek == DayOfWeek.Friday)
-            {
-                qryDate = dt_last.AddDays(4);
-            }
+            Cursor = Cursors.Default;
+            MessageBox.Show("更新完畢共" + _date.Count.ToString()+"筆\r\n" + "成功：" + (success.Trim().Length==0?"無":success.Replace(" ",",")) + "\r\n失敗：" + (fail.Trim().Length==0?"無":fail ));
+        }
 
+        private void getfromJson(string url)
+        {
+            WebClient wc = new WebClient();
+            string json = wc.DownloadString(url);
+
+            JavaScriptSerializer parser = new JavaScriptSerializer();
+            dynamic info = parser.Deserialize<dynamic>(json);
+            double avg = 0.0;
+            foreach (string sn in info["ordernum"])
+            {
+                avg += Convert.ToInt32(sn);
+            }
+            avg = Math.Round(avg / 6);
+            int range = Convert.ToInt32(info["ordernum"][5]) - Convert.ToInt32(info["ordernum"][0]);
+            string s = info["period"] + "," + info["adate"] + "," + info["ordernum"][0] + "," + info["ordernum"][1] + "," + info["ordernum"][2] + "," + info["ordernum"][3] + "," + info["ordernum"][4] + "," + info["ordernum"][5] + "," + info["specialnum"] +"," + avg.ToString() + "," +range.ToString() ;
+            save2DB(s.Split(new char[] { ','}));
+        }
+
+        private void save2DB(object[] uptdata)
+        {
+            maintab.Rows.Add(uptdata);
+            sdp.Update(maintab);
+        }
+
+        private List<string> targetDate()
+        {
+            DateTime dt_last = Convert.ToDateTime((comboBox2.Items[0] as DataRowView).Row.ItemArray[0]);
+            DateTime qryDate = DateTime.Now;
+            List<string> rtn = new List<string>();
+            while (DateTime.Now > dt_last)
+            {
+                if (dt_last.DayOfWeek == DayOfWeek.Tuesday)
+                {
+                    qryDate = dt_last.AddDays(3);
+                    
+                }
+                else if (dt_last.DayOfWeek == DayOfWeek.Friday)
+                {
+                    qryDate = dt_last.AddDays(4);
+                }
+                if (DateTime.Now > qryDate)
+                    rtn.Add(qryDate.ToString("yyyy/MM/dd"));
+                dt_last = qryDate;
+            }
+            return rtn;
         }
     }
 }
