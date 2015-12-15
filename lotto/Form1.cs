@@ -34,10 +34,7 @@ namespace lotto
             this.Top = 5;
             getMainTable();
             dataGridView1.DataSource = maintab;
-            var dts = maintab.AsEnumerable()
-                .Select(c => c.Field<DateTime>("date"))
-                .OrderByDescending(ody => ody);
-            comboBox2.DataSource = dts.ToList();
+            
         }
         DataTable maintab = new DataTable();
         SqlDataAdapter sdp;
@@ -115,8 +112,12 @@ namespace lotto
                 sdp.Fill(tmpdtb);
                 maxAppearNum(ref tmpdtb);
                 dataGridView2.DataSource = tmpdtb;
-
                 setGridViewHeader();
+
+                var dts = maintab.AsEnumerable()
+                .Select(c => c.Field<DateTime>("date"))
+                .OrderByDescending(ody => ody);
+                comboBox2.DataSource = dts.ToList();
             }
         }
 
@@ -409,7 +410,7 @@ namespace lotto
 
         private List<string> targetDate()
         {
-            DateTime dt_last = Convert.ToDateTime((comboBox2.Items[0] as DataRowView).Row.ItemArray[0]);
+            DateTime dt_last = Convert.ToDateTime(comboBox2.Items[0].ToString());
             DateTime qryDate = DateTime.Now;
             List<string> rtn = new List<string>();
             while (DateTime.Now > dt_last)
