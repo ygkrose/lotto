@@ -26,8 +26,6 @@ namespace lotto
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            // TODO: 這行程式碼會將資料載入 'lottoDataSet.maindata' 資料表。您可以視需要進行移動或移除。
-            this.maindataTableAdapter.Fill(this.lottoDataSet.maindata);
             this.Width = 900;
             this.Height = 600;
             this.Left = 5;
@@ -409,7 +407,7 @@ namespace lotto
 
         private List<string> targetDate()
         {
-            DateTime dt_last = Convert.ToDateTime((comboBox2.Items[0] as DataRowView).Row.ItemArray[0]);
+            DateTime dt_last = Convert.ToDateTime(comboBox2.Items[0].ToString());
             DateTime qryDate = DateTime.Now;
             List<string> rtn = new List<string>();
             while (DateTime.Now > dt_last)
