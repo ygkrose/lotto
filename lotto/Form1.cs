@@ -32,7 +32,7 @@ namespace lotto
             this.Top = 5;
             getMainTable();
             dataGridView1.DataSource = maintab;
-            
+            fillDateDataSource();
         }
         DataTable maintab = new DataTable();
         SqlDataAdapter sdp;
@@ -111,12 +111,16 @@ namespace lotto
                 maxAppearNum(ref tmpdtb);
                 dataGridView2.DataSource = tmpdtb;
                 setGridViewHeader();
-
-                var dts = maintab.AsEnumerable()
-                .Select(c => c.Field<DateTime>("date"))
-                .OrderByDescending(ody => ody);
-                comboBox2.DataSource = dts.ToList();
+                fillDateDataSource();
             }
+        }
+
+        private void fillDateDataSource()
+        {
+            var dts = maintab.AsEnumerable()
+               .Select(c => c.Field<DateTime>("date"))
+               .OrderByDescending(ody => ody);
+            comboBox2.DataSource = dts.ToList();
         }
 
         private void setGridViewHeader()
