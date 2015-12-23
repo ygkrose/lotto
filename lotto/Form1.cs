@@ -112,10 +112,15 @@ namespace lotto
 
         private void fillDateDataSource()
         {
+            comboBox2.DataSource = getAllDate();
+        }
+
+        private List<DateTime> getAllDate()
+        {
             var dts = maintab.AsEnumerable()
                .Select(c => c.Field<DateTime>("date"))
                .OrderByDescending(ody => ody);
-            comboBox2.DataSource = dts.ToList();
+            return dts.ToList();
         }
 
         private void setGridViewHeader()
@@ -276,20 +281,29 @@ namespace lotto
 
         private string[] getNumbyDate(string date)
         {
+            DataRow[] drow = maintab.Select("date='" + date + "'");
+            
             string[] ary = null;
-            var sdata = maintab.AsEnumerable()
-                    .Where(dr => dr.Field<DateTime>("date") == Convert.ToDateTime(date))
-                    .Select(o => new { num1 = o.Field<int>("num1").ToString(), num2 = o.Field<int>("num2").ToString(), num3 = o.Field<int>("num3").ToString(), num4 = o.Field<int>("num4").ToString(), num5 = o.Field<int>("num5").ToString(), num6 = o.Field<int>("num6").ToString() });
-            foreach (var row in sdata)
-            {
-                ary = new string[6];
-                ary[0] = row.num1;
-                ary[1] = row.num2;
-                ary[2] = row.num3;
-                ary[3] = row.num4;
-                ary[4] = row.num5;
-                ary[5] = row.num6;
-            }
+            ary = new string[6];
+            ary[0] = drow[0]["num1"].ToString();
+            ary[1] = drow[0]["num2"].ToString();
+            ary[2] = drow[0]["num3"].ToString();
+            ary[3] = drow[0]["num4"].ToString();
+            ary[4] = drow[0]["num5"].ToString();
+            ary[5] = drow[0]["num6"].ToString();
+            //var sdata = maintab.AsEnumerable()
+            //        .Where(dr => dr.Field<DateTime>("date") == Convert.ToDateTime(date))
+            //        .Select(o => new { num1 = o.Field<int>("num1").ToString(), num2 = o.Field<int>("num2").ToString(), num3 = o.Field<int>("num3").ToString(), num4 = o.Field<int>("num4").ToString(), num5 = o.Field<int>("num5").ToString(), num6 = o.Field<int>("num6").ToString() });
+            //foreach (var row in sdata)
+            //{
+            //    ary = new string[6];
+            //    ary[0] = row.num1;
+            //    ary[1] = row.num2;
+            //    ary[2] = row.num3;
+            //    ary[3] = row.num4;
+            //    ary[4] = row.num5;
+            //    ary[5] = row.num6;
+            //}
             return ary;
         }
 
@@ -328,6 +342,27 @@ namespace lotto
                 outstr.Add(item.Key.ToString("00") + " : " + cnt.Substring(0, cnt.Length - 1));
             }
             return outstr;
+        }
+
+        private List<int> getSelCount(int selectcount, IEnumerable<KeyValuePair<int, Dictionary<int, int>>> serial)
+        {
+            List<int> sumdict = new List<int>(); 
+            foreach (var item in serial.OrderBy(r => r.Key))
+            {
+                var s1 = item.Value.OrderByDescending(o => o.Value);
+                int tmpcnt = 0;
+                foreach (var i1 in s1)
+                {
+                    if (tmpcnt < selectcount)
+                    {
+                        sumdict.Add(i1.Key);
+                        tmpcnt++;
+                    }
+                    else
+                        break;
+                }
+            }
+            return sumdict;
         }
         //將符合的加總放進前幾碼加總
         private void sumColumn()
@@ -433,6 +468,38 @@ namespace lotto
                 dt_last = qryDate;
             }
             return rtn;
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            aggregate agg = new aggregate(maintab);
+            listView1.BeginUpdate();
+            foreach (DateTime dt in getAllDate().OrderBy(p=>p))
+            {
+                string strDT = dt.ToString("yyyy/MM/dd");
+                IEnumerable<KeyValuePair<int, Dictionary<int, int>>> ss1 = agg.getBagData().Where(p => getNumbyDate(strDT).Contains(p.Key.ToString())).ToList();
+                fillListView(getSelCount(2, ss1), dt);
+                
+            }
+            listView1.EndUpdate();
+        }
+
+        private void fillListView(List<int> source,DateTime dt)
+        {
+            
+            ListViewItem lvi = new ListViewItem();
+            lvi.Text = dt.ToString("yyyy/MM/dd");
+            
+            lvi.SubItems.Add(System.Globalization.DateTimeFormatInfo.CurrentInfo.DayNames[(byte)dt.DayOfWeek]);
+            string s = "";
+            foreach (string n in source.Select(v => v.ToString()))
+            {
+                 s += n+",";
+            }
+            ListViewItem.ListViewSubItem vls = new ListViewItem.ListViewSubItem();
+            lvi.SubItems.Add(s.Substring(0,s.Length-1)); 
+            lvi.SubItems.Add("");
+            listView1.Items.Add(lvi);
         }
     }
 }
