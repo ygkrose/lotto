@@ -10,22 +10,30 @@ namespace lotto
     class aggregate
     {
         private DataTable mainTab = null;
-        private int[][] allnum;
-        private Dictionary<int, Dictionary<int,int>> aggBag = new Dictionary<int, Dictionary<int,int>>();
+        private int[][] allnum; //[no][0~5] 記錄各期的6個號碼
+        private Dictionary<int, Dictionary<int,int>> aggBag = new Dictionary<int, Dictionary<int,int>>(); //<號碼,<下一期號碼,累加出現次數>>
         private const int bignum = 49;
+
         public aggregate(DataTable dtb)
         {
             mainTab = dtb;
-            
-
+            var allserial = from r in mainTab.AsEnumerable()
+                            select new[] {
+                                r.Field<int>("num1"),
+                                r.Field<int>("num2"),
+                                r.Field<int>("num3"),
+                                r.Field<int>("num4"),
+                                r.Field<int>("num5"),
+                                r.Field<int>("num6") };
+            allnum = allserial.ToArray();
         }
 
         private void calcAggregate(int maxnum)
         {
-             
+            //巡迴每一期
             for (int i = 0; i < allnum.Length; i++)
             {
-                
+                //巡迴每一號碼
                 for (int j=0; j< maxnum; j++)
                 {
                     if (i == allnum.Length - 1)
@@ -65,16 +73,6 @@ namespace lotto
 
         public Dictionary<int, Dictionary<int, int>> getBagData()
         {
-            var allserial = from r in mainTab.AsEnumerable()
-                            select new[] {
-                                r.Field<int>("num1"),
-                                r.Field<int>("num2"),
-                                r.Field<int>("num3"),
-                                r.Field<int>("num4"),
-                                r.Field<int>("num5"),
-                                r.Field<int>("num6") };
-            allnum = allserial.ToArray();
-
             aggBag.Clear();
             calcAggregate(6);
             return aggBag;

@@ -247,20 +247,7 @@ namespace lotto
                 string[] ary = null;
                 if (!string.IsNullOrEmpty(comboBox2.Text.Trim()))
                 {
-                    //DataRow[] dr = maintab.Select("date='#" + textBox2.Text.Trim() + "#'");
-                    var sdata = maintab.AsEnumerable()
-                    .Where(dr => dr.Field<DateTime>("date") == Convert.ToDateTime(comboBox2.Text.Trim()))
-                    .Select(o => new { num1 = o.Field<int>("num1").ToString(), num2 = o.Field<int>("num2").ToString(), num3 = o.Field<int>("num3").ToString(), num4 = o.Field<int>("num4").ToString(), num5 = o.Field<int>("num5").ToString(), num6 = o.Field<int>("num6").ToString() });
-                    foreach (var row in sdata)
-                    {
-                        ary = new string[6];
-                        ary[0] = row.num1;
-                        ary[1] = row.num2;
-                        ary[2] = row.num3;
-                        ary[3] = row.num4;
-                        ary[4] = row.num5;
-                        ary[5] = row.num6;
-                    }
+                    ary = getNumbyDate(comboBox2.Text.Trim());
                 }
                 else
                 {
@@ -285,6 +272,25 @@ namespace lotto
             //特別號累加
             IEnumerable<KeyValuePair<int, Dictionary<int, int>>> specbag = agg.getSpecBagData().OrderBy(r => r.Key);
             listBox2.Items.AddRange(addUIData(specbag).ToArray());
+        }
+
+        private string[] getNumbyDate(string date)
+        {
+            string[] ary = null;
+            var sdata = maintab.AsEnumerable()
+                    .Where(dr => dr.Field<DateTime>("date") == Convert.ToDateTime(date))
+                    .Select(o => new { num1 = o.Field<int>("num1").ToString(), num2 = o.Field<int>("num2").ToString(), num3 = o.Field<int>("num3").ToString(), num4 = o.Field<int>("num4").ToString(), num5 = o.Field<int>("num5").ToString(), num6 = o.Field<int>("num6").ToString() });
+            foreach (var row in sdata)
+            {
+                ary = new string[6];
+                ary[0] = row.num1;
+                ary[1] = row.num2;
+                ary[2] = row.num3;
+                ary[3] = row.num4;
+                ary[4] = row.num5;
+                ary[5] = row.num6;
+            }
+            return ary;
         }
 
         private void calcByNum(aggregate agg)
