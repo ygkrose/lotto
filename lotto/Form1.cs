@@ -407,6 +407,7 @@ namespace lotto
 
         private List<string> targetDate()
         {
+            fillDateDataSource();
             DateTime dt_last = Convert.ToDateTime(comboBox2.Items[0].ToString());
             DateTime qryDate = DateTime.Now;
             List<string> rtn = new List<string>();
