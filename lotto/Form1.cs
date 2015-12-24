@@ -663,5 +663,18 @@ namespace lotto
             }         
                 
         }
+
+        private void 各組數中獎狀態ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (listView1.SelectedItems.Count != 1)
+            {
+                MessageBox.Show("請選擇一筆資料!");
+                return;
+            }
+            List<string> ls = new List<string>();
+            ls.AddRange(listView1.SelectedItems[0].SubItems[3].Text.Split(new char[] { ',' }));
+            Form2 fm2 = new Form2(listView1.SelectedItems[0].SubItems[2].Text,ls);
+            fm2.ShowDialog();
+        }
     }
 }

@@ -29,14 +29,14 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -94,11 +94,19 @@
             this.weekday = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.fnums = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.rnums = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.thit = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.hit3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.hit4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.hit5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.cost = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.income = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.balance = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.線圖ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.直方圖ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.區域圖ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.label8 = new System.Windows.Forms.Label();
             this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
             this.label7 = new System.Windows.Forms.Label();
             this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
@@ -106,14 +114,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.button6 = new System.Windows.Forms.Button();
-            this.thit = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.label8 = new System.Windows.Forms.Label();
-            this.income = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.balance = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.線圖ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.直方圖ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.區域圖ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.各組數中獎狀態ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -134,18 +135,18 @@
             this.contextMenuStrip1.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
+            this.contextMenuStrip2.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
-            this.contextMenuStrip2.SuspendLayout();
             this.SuspendLayout();
             // 
             // dataGridView1
             // 
             this.dataGridView1.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle11;
             this.dataGridView1.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -238,8 +239,8 @@
             // Column9
             // 
             this.Column9.DataPropertyName = "nums";
-            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.Blue;
-            this.Column9.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle12.ForeColor = System.Drawing.Color.Blue;
+            this.Column9.DefaultCellStyle = dataGridViewCellStyle12;
             this.Column9.HeaderText = "特別號";
             this.Column9.Name = "Column9";
             this.Column9.ReadOnly = true;
@@ -368,18 +369,18 @@
             // 
             // chart1
             // 
-            chartArea2.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea2);
+            chartArea3.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea3);
             this.chart1.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend2.Name = "Legend1";
-            this.chart1.Legends.Add(legend2);
+            legend3.Name = "Legend1";
+            this.chart1.Legends.Add(legend3);
             this.chart1.Location = new System.Drawing.Point(0, 0);
             this.chart1.Margin = new System.Windows.Forms.Padding(2);
             this.chart1.Name = "chart1";
-            series2.ChartArea = "ChartArea1";
-            series2.Legend = "Legend1";
-            series2.Name = "Series1";
-            this.chart1.Series.Add(series2);
+            series3.ChartArea = "ChartArea1";
+            series3.Legend = "Legend1";
+            series3.Name = "Series1";
+            this.chart1.Series.Add(series3);
             this.chart1.Size = new System.Drawing.Size(714, 314);
             this.chart1.TabIndex = 0;
             this.chart1.Text = "chart1";
@@ -391,7 +392,7 @@
             this.tabPage2.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPage2.Size = new System.Drawing.Size(771, 560);
+            this.tabPage2.Size = new System.Drawing.Size(852, 560);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "統計預測";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -413,7 +414,7 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 96F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 96F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(767, 556);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(848, 556);
             this.tableLayoutPanel2.TabIndex = 3;
             // 
             // groupBox1
@@ -433,7 +434,7 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Size = new System.Drawing.Size(763, 196);
+            this.groupBox1.Size = new System.Drawing.Size(844, 196);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "均值，眾數";
@@ -533,8 +534,8 @@
             this.dataGridView2.AllowUserToAddRows = false;
             this.dataGridView2.AllowUserToDeleteRows = false;
             this.dataGridView2.AllowUserToOrderColumns = true;
-            dataGridViewCellStyle8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.dataGridView2.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle13.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.dataGridView2.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle13;
             this.dataGridView2.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -606,8 +607,8 @@
             // Column20
             // 
             this.Column20.DataPropertyName = "avgs";
-            dataGridViewCellStyle9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.Column20.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle14.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.Column20.DefaultCellStyle = dataGridViewCellStyle14;
             this.Column20.HeaderText = "特別號";
             this.Column20.Name = "Column20";
             this.Column20.ReadOnly = true;
@@ -616,8 +617,8 @@
             // Column21
             // 
             this.Column21.DataPropertyName = "tavg";
-            dataGridViewCellStyle10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.Column21.DefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle15.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.Column21.DefaultCellStyle = dataGridViewCellStyle15;
             this.Column21.HeaderText = "總平均";
             this.Column21.Name = "Column21";
             this.Column21.ReadOnly = true;
@@ -642,7 +643,7 @@
             this.groupBox2.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox2.Size = new System.Drawing.Size(763, 160);
+            this.groupBox2.Size = new System.Drawing.Size(844, 160);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "累積頻率";
@@ -658,7 +659,7 @@
             this.listBox1.Location = new System.Drawing.Point(2, 17);
             this.listBox1.Margin = new System.Windows.Forms.Padding(2);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(759, 141);
+            this.listBox1.Size = new System.Drawing.Size(840, 141);
             this.listBox1.TabIndex = 0;
             // 
             // groupBox3
@@ -669,7 +670,7 @@
             this.groupBox3.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox3.Size = new System.Drawing.Size(763, 92);
+            this.groupBox3.Size = new System.Drawing.Size(844, 92);
             this.groupBox3.TabIndex = 3;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "特別號累積頻率";
@@ -685,7 +686,7 @@
             this.listBox2.Location = new System.Drawing.Point(2, 17);
             this.listBox2.Margin = new System.Windows.Forms.Padding(2);
             this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(759, 73);
+            this.listBox2.Size = new System.Drawing.Size(840, 73);
             this.listBox2.TabIndex = 0;
             // 
             // groupBox4
@@ -696,7 +697,7 @@
             this.groupBox4.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox4.Size = new System.Drawing.Size(763, 92);
+            this.groupBox4.Size = new System.Drawing.Size(844, 92);
             this.groupBox4.TabIndex = 4;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "前幾碼加總";
@@ -713,7 +714,7 @@
             this.listBox3.Location = new System.Drawing.Point(2, 17);
             this.listBox3.Margin = new System.Windows.Forms.Padding(2);
             this.listBox3.Name = "listBox3";
-            this.listBox3.Size = new System.Drawing.Size(759, 73);
+            this.listBox3.Size = new System.Drawing.Size(840, 73);
             this.listBox3.TabIndex = 0;
             // 
             // contextMenuStrip1
@@ -799,12 +800,17 @@
             // fnums
             // 
             this.fnums.Text = "Forcast Numbers";
-            this.fnums.Width = 220;
+            this.fnums.Width = 130;
             // 
             // rnums
             // 
             this.rnums.Text = "Result Number";
             this.rnums.Width = 130;
+            // 
+            // thit
+            // 
+            this.thit.Text = "TotalHit";
+            this.thit.Width = 50;
             // 
             // hit3
             // 
@@ -825,6 +831,45 @@
             // 
             this.cost.Text = "Cost";
             // 
+            // income
+            // 
+            this.income.Text = "Income";
+            // 
+            // balance
+            // 
+            this.balance.Text = "Balance";
+            // 
+            // contextMenuStrip2
+            // 
+            this.contextMenuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.線圖ToolStripMenuItem,
+            this.直方圖ToolStripMenuItem,
+            this.區域圖ToolStripMenuItem,
+            this.各組數中獎狀態ToolStripMenuItem});
+            this.contextMenuStrip2.Name = "contextMenuStrip2";
+            this.contextMenuStrip2.Size = new System.Drawing.Size(167, 114);
+            // 
+            // 線圖ToolStripMenuItem
+            // 
+            this.線圖ToolStripMenuItem.Name = "線圖ToolStripMenuItem";
+            this.線圖ToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.線圖ToolStripMenuItem.Text = "線圖";
+            this.線圖ToolStripMenuItem.Click += new System.EventHandler(this.線圖ToolStripMenuItem_Click);
+            // 
+            // 直方圖ToolStripMenuItem
+            // 
+            this.直方圖ToolStripMenuItem.Name = "直方圖ToolStripMenuItem";
+            this.直方圖ToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.直方圖ToolStripMenuItem.Text = "直方圖";
+            this.直方圖ToolStripMenuItem.Click += new System.EventHandler(this.線圖ToolStripMenuItem_Click);
+            // 
+            // 區域圖ToolStripMenuItem
+            // 
+            this.區域圖ToolStripMenuItem.Name = "區域圖ToolStripMenuItem";
+            this.區域圖ToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.區域圖ToolStripMenuItem.Text = "區域圖";
+            this.區域圖ToolStripMenuItem.Click += new System.EventHandler(this.線圖ToolStripMenuItem_Click);
+            // 
             // panel2
             // 
             this.panel2.Controls.Add(this.label8);
@@ -840,6 +885,14 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(842, 34);
             this.panel2.TabIndex = 2;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(440, 10);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(0, 12);
+            this.label8.TabIndex = 8;
             // 
             // numericUpDown3
             // 
@@ -951,56 +1004,12 @@
             this.button6.UseVisualStyleBackColor = true;
             this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
-            // thit
+            // 各組數中獎狀態ToolStripMenuItem
             // 
-            this.thit.Text = "TotalHit";
-            this.thit.Width = 50;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(440, 10);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(0, 12);
-            this.label8.TabIndex = 8;
-            // 
-            // income
-            // 
-            this.income.Text = "Income";
-            // 
-            // balance
-            // 
-            this.balance.Text = "Balance";
-            // 
-            // contextMenuStrip2
-            // 
-            this.contextMenuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.線圖ToolStripMenuItem,
-            this.直方圖ToolStripMenuItem,
-            this.區域圖ToolStripMenuItem});
-            this.contextMenuStrip2.Name = "contextMenuStrip2";
-            this.contextMenuStrip2.Size = new System.Drawing.Size(153, 92);
-            // 
-            // 線圖ToolStripMenuItem
-            // 
-            this.線圖ToolStripMenuItem.Name = "線圖ToolStripMenuItem";
-            this.線圖ToolStripMenuItem.Size = new System.Drawing.Size(94, 22);
-            this.線圖ToolStripMenuItem.Text = "線圖";
-            this.線圖ToolStripMenuItem.Click += new System.EventHandler(this.線圖ToolStripMenuItem_Click);
-            // 
-            // 直方圖ToolStripMenuItem
-            // 
-            this.直方圖ToolStripMenuItem.Name = "直方圖ToolStripMenuItem";
-            this.直方圖ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.直方圖ToolStripMenuItem.Text = "直方圖";
-            this.直方圖ToolStripMenuItem.Click += new System.EventHandler(this.線圖ToolStripMenuItem_Click);
-            // 
-            // 區域圖ToolStripMenuItem
-            // 
-            this.區域圖ToolStripMenuItem.Name = "區域圖ToolStripMenuItem";
-            this.區域圖ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.區域圖ToolStripMenuItem.Text = "區域圖";
-            this.區域圖ToolStripMenuItem.Click += new System.EventHandler(this.線圖ToolStripMenuItem_Click);
+            this.各組數中獎狀態ToolStripMenuItem.Name = "各組數中獎狀態ToolStripMenuItem";
+            this.各組數中獎狀態ToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.各組數中獎狀態ToolStripMenuItem.Text = "顯示當期中獎組數";
+            this.各組數中獎狀態ToolStripMenuItem.Click += new System.EventHandler(this.各組數中獎狀態ToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -1034,12 +1043,12 @@
             this.contextMenuStrip1.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
+            this.contextMenuStrip2.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
-            this.contextMenuStrip2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1122,6 +1131,7 @@
         private System.Windows.Forms.ToolStripMenuItem 線圖ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 直方圖ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 區域圖ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 各組數中獎狀態ToolStripMenuItem;
     }
 }
 
