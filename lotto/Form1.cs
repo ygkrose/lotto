@@ -264,7 +264,7 @@ namespace lotto
                 string[] ary = null;
                 if (!string.IsNullOrEmpty(comboBox2.Text.Trim()))
                 {
-                    ary = getNumbyDate(comboBox2.Text.Trim());
+                    ary = getNumbyDate(comboBox2.Text.Trim(),false);
                 }
                 else
                 {
@@ -291,32 +291,33 @@ namespace lotto
             listBox2.Items.AddRange(addUIData(specbag).ToArray());
         }
 
-        private string[] getNumbyDate(string date)
+        private string[] getNumbyDate(string date,bool withS)
         {
             DataRow[] drow = maintab.Select("date='" + date + "'");
             
             string[] ary = null;
-            ary = new string[7];
-            ary[0] = drow[0]["num1"].ToString();
-            ary[1] = drow[0]["num2"].ToString();
-            ary[2] = drow[0]["num3"].ToString();
-            ary[3] = drow[0]["num4"].ToString();
-            ary[4] = drow[0]["num5"].ToString();
-            ary[5] = drow[0]["num6"].ToString();
-            ary[6] = drow[0]["nums"].ToString();
-            //var sdata = maintab.AsEnumerable()
-            //        .Where(dr => dr.Field<DateTime>("date") == Convert.ToDateTime(date))
-            //        .Select(o => new { num1 = o.Field<int>("num1").ToString(), num2 = o.Field<int>("num2").ToString(), num3 = o.Field<int>("num3").ToString(), num4 = o.Field<int>("num4").ToString(), num5 = o.Field<int>("num5").ToString(), num6 = o.Field<int>("num6").ToString() });
-            //foreach (var row in sdata)
-            //{
-            //    ary = new string[6];
-            //    ary[0] = row.num1;
-            //    ary[1] = row.num2;
-            //    ary[2] = row.num3;
-            //    ary[3] = row.num4;
-            //    ary[4] = row.num5;
-            //    ary[5] = row.num6;
-            //}
+            if (withS)
+            {
+                ary = new string[7];
+                ary[0] = drow[0]["num1"].ToString().Length == 1? "0" + drow[0]["num1"].ToString() : drow[0]["num1"].ToString();
+                ary[1] = drow[0]["num2"].ToString().Length == 1 ? "0" + drow[0]["num2"].ToString() : drow[0]["num2"].ToString();
+                ary[2] = drow[0]["num3"].ToString().Length == 1 ? "0" + drow[0]["num3"].ToString() : drow[0]["num3"].ToString();
+                ary[3] = drow[0]["num4"].ToString().Length == 1 ? "0" + drow[0]["num4"].ToString() : drow[0]["num4"].ToString();
+                ary[4] = drow[0]["num5"].ToString().Length == 1 ? "0" + drow[0]["num5"].ToString() : drow[0]["num5"].ToString();
+                ary[5] = drow[0]["num6"].ToString().Length == 1 ? "0" + drow[0]["num6"].ToString() : drow[0]["num6"].ToString();
+                ary[6] = drow[0]["nums"].ToString().Length == 1 ? "0" + drow[0]["nums"].ToString() : drow[0]["nums"].ToString();
+            }
+            else
+            {
+                ary = new string[6];
+                ary[0] = drow[0]["num1"].ToString();
+                ary[1] = drow[0]["num2"].ToString();
+                ary[2] = drow[0]["num3"].ToString();
+                ary[3] = drow[0]["num4"].ToString();
+                ary[4] = drow[0]["num5"].ToString();
+                ary[5] = drow[0]["num6"].ToString();
+            }
+            
             return ary;
         }
 
@@ -357,9 +358,9 @@ namespace lotto
             return outstr;
         }
 
-        private List<int> getSelCount(int selectcount, IEnumerable<KeyValuePair<int, Dictionary<int, int>>> serial)
+        private List<string> getSelCount(int selectcount, IEnumerable<KeyValuePair<int, Dictionary<int, int>>> serial)
         {
-            List<int> sumdict = new List<int>(); 
+            List<string> sumdict = new List<string>(); 
             foreach (var item in serial.OrderBy(r => r.Key))
             {
                 var s1 = item.Value.OrderByDescending(o => o.Value);
@@ -368,7 +369,8 @@ namespace lotto
                 {
                     if (tmpcnt < selectcount)
                     {
-                        sumdict.Add(i1.Key);
+                        if (!sumdict.Contains(i1.Key.ToString("00")))
+                            sumdict.Add(i1.Key.ToString("00"));
                         tmpcnt++;
                     }
                     else
@@ -489,25 +491,53 @@ namespace lotto
             listView1.BeginUpdate();
             List<DateTime> dts = getAllDatebyDate(numericUpDown2.Value.ToString(),numericUpDown3.Value.ToString());
             totalhitrate = 0;
+            sumTotalCost = 0;
+            sumTotalIncome = 0;
             listView1.Items.Clear();
             this.Cursor = Cursors.WaitCursor;
             for (int i = dts.Count-1; i > 0; i--)
             {
                 string strDT = dts[i].ToString("yyyy/MM/dd");
-                IEnumerable<KeyValuePair<int, Dictionary<int, int>>> ss1 = agg.getBagData().Where(p => getNumbyDate(strDT).Contains(p.Key.ToString())).ToList();
+                IEnumerable<KeyValuePair<int, Dictionary<int, int>>> ss1 = agg.getBagData().Where(p => getNumbyDate(strDT,false).Contains(p.Key.ToString())).ToList();
                 fillListView(getSelCount((int)numericUpDown1.Value, ss1), dts[i], dts[i - 1]);
             }
             this.Cursor = Cursors.Default;
             listView1.EndUpdate();
-            label8.Text = "總共" + (dts.Count-1).ToString() + "筆，中獎" + totalhitrate.ToString() + "筆，中獎率：" + Math.Round(((decimal)totalhitrate/ (dts.Count - 1)),3);
+            label8.Text = "總共" + (dts.Count-1).ToString() + "筆，中獎" + totalhitrate.ToString() + "筆，中獎率：" + Math.Round(((decimal)totalhitrate/ (dts.Count - 1)),3) + ",總損益：" + (sumTotalIncome - sumTotalCost).ToString();
         }
 
+        private void fillListView(List<string> source, DateTime dt1, DateTime dt2)
+        {
+            ListViewItem lvi = new ListViewItem();
+            lvi.Text = dt1.ToString("yyyy/MM/dd");
+            //填入星期
+            lvi.SubItems.Add(System.Globalization.DateTimeFormatInfo.CurrentInfo.DayNames[(byte)dt1.DayOfWeek]);
+            //填入預測號碼
+            string s = "";
+            s = String.Join(",", source.Select(v => v.ToString()));
+            ListViewItem.ListViewSubItem vls1 = new ListViewItem.ListViewSubItem(lvi,s);
+            lvi.SubItems.Add(vls1);
+            //填入獎號
+            string[] hitnums = getNumbyDate(dt2.ToString("yyyy/MM/dd"),true);
+            s = String.Join(",", hitnums);
+            ListViewItem.ListViewSubItem vls2 = new ListViewItem.ListViewSubItem(lvi, s);
+            lvi.SubItems.Add(vls2);
+            //呼叫中獎號函式
+            compareHitRate(source, hitnums,lvi);
+            //呼叫組數中獎函式
+            List<string> l = new List<string>();
+            l.AddRange(hitnums);
+            source.Sort();
+            spreadhitlist(source.ToArray(),l,lvi);
+            //listView1加入當日結果值
+            listView1.Items.Add(lvi);
+        }
 
         int totalhitrate = 0;
-        private void compareHitRate(List<int> v, string[] hitnums, ListViewItem lvi)
+        private void compareHitRate(List<string> v, string[] hitnums, ListViewItem lvi)
         {
             int hitcnt = 0;
-            foreach (int forcastnum in v)
+            foreach (string forcastnum in v)
             {
                 if (hitnums.Contains(forcastnum.ToString()))
                 {
@@ -520,41 +550,69 @@ namespace lotto
             {
                 totalhitrate++;
                 vls3.ForeColor = Color.Red;
-                vls3.BackColor = Color.LightBlue;
+                vls3.BackColor = Color.LightGray;
             }
             lvi.SubItems.Add(vls3);
         }
 
-        private void fillListView(List<int> source, DateTime dt1, DateTime dt2)
+        double sumTotalCost = 0;
+        double sumTotalIncome = 0;
+        private void spreadhitlist(string[] forcast,List<string> hitnums, ListViewItem lvi)
         {
-            
-            ListViewItem lvi = new ListViewItem();
-            lvi.Text = dt1.ToString("yyyy/MM/dd");
-            lvi.SubItems.Add(System.Globalization.DateTimeFormatInfo.CurrentInfo.DayNames[(byte)dt1.DayOfWeek]);
-            string s = "";
-            foreach (string n in source.Select(v => v.ToString()))
+            if (forcast.Length > 5)
             {
-                 s += n+",";
+                forcast = rearrangeAry(forcast);
             }
-            ListViewItem.ListViewSubItem vls1 = new ListViewItem.ListViewSubItem(lvi,s.Substring(0,s.Length-1));
-            lvi.SubItems.Add(vls1);
-            string[] hitnums = getNumbyDate(dt2.ToString("yyyy/MM/dd"));
-            s = "";
-            foreach(string ss in hitnums)
+            string[] dst_ary = { "", "", "", "", "", "" };
+            int hit = 0;
+            int hit3 = 0;
+            int hit4 = 0;
+            int hit5 = 0;
+            for (int i = 0; i <= forcast.Length - 6; i++)
             {
-                s += ss + ",";
+                Array.Copy(forcast, i, dst_ary, 0, 6);
+                foreach (string s in dst_ary)
+                {
+                    if (hitnums.Contains(s))
+                        hit++;
+                }
+                switch (hit)
+                {
+                    case 3:
+                        hit3++;
+                        break;
+                    case 4:
+                        hit4++;
+                        break;
+                    case 5:
+                        hit5++;
+                        break;
+                }
+                Array.Clear(dst_ary, 0, 6);
+                hit = 0;
             }
-            ListViewItem.ListViewSubItem vls2 = new ListViewItem.ListViewSubItem(lvi, s.Substring(0, s.Length - 1));
-            lvi.SubItems.Add(vls2);
-            compareHitRate(source, hitnums,lvi);
-            listView1.Items.Add(lvi);
+            ListViewItem.ListViewSubItem vls4 = new ListViewItem.ListViewSubItem(lvi, hit3.ToString());
+            ListViewItem.ListViewSubItem vls5 = new ListViewItem.ListViewSubItem(lvi, hit4.ToString());
+            ListViewItem.ListViewSubItem vls6 = new ListViewItem.ListViewSubItem(lvi, hit5.ToString());
+            lvi.SubItems.Add(vls4); lvi.SubItems.Add(vls5); lvi.SubItems.Add(vls6);
+            int totalCost = (forcast.Length - 6) * 50;
+            sumTotalCost += totalCost;
+            ListViewItem.ListViewSubItem vls7 = new ListViewItem.ListViewSubItem(lvi, Convert.ToString(totalCost));
+            int totalInc = hit3 * 400 + hit4 * 1300 + hit5 * 25000;
+            sumTotalIncome += totalInc;
+            ListViewItem.ListViewSubItem vls8 = new ListViewItem.ListViewSubItem(lvi, Convert.ToString(totalInc));
+            ListViewItem.ListViewSubItem vls9 = new ListViewItem.ListViewSubItem(lvi, Convert.ToString(totalInc-totalCost));
+            lvi.SubItems.Add(vls7); lvi.SubItems.Add(vls8); lvi.SubItems.Add(vls9);
         }
 
-        private void numericUpDown2_ValueChanged(object sender, EventArgs e)
+        public string[] rearrangeAry(string[] _array)
         {
+            List<string> _ary = new List<string>(_array);
 
+            _ary.AddRange(_ary.GetRange(0, 5));
+
+            return _ary.ToArray();
         }
 
- 
     }
 }

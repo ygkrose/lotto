@@ -25,16 +25,17 @@ namespace lotto
 
         private void Form2_Load(object sender, EventArgs e)
         {
-           
+            //this.ParentForm
             string[] src_ary = numsString.Split(new char[] { ',' });
+            Array.Sort(src_ary);
             if (src_ary.Length > 5)
             {
-               src_ary =  rearrangeAry(src_ary);
+               src_ary = rearrangeAry(src_ary);
             }
             string[] dst_ary = { "", "", "", "", "", "" };
             listBox1.Items.Add(String.Join("," , _forcast.ToArray()));
-            this.Text = "預測共" + Convert.ToString(src_ary.Length-6) + "組" ;
-            for (int i = 0; i < src_ary.Length - 6 ; i++)
+            this.Text = "預測共" + Convert.ToString(src_ary.Length-5) + "組" ;
+            for (int i = 0; i <= src_ary.Length - 6 ; i++)
             {
                 Array.Copy(src_ary, i, dst_ary, 0, 6);
                 Array.Sort(dst_ary);
