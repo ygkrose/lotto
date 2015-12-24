@@ -509,9 +509,9 @@ namespace lotto
         private void fillListView(List<string> source, DateTime dt1, DateTime dt2)
         {
             ListViewItem lvi = new ListViewItem();
-            lvi.Text = dt1.ToString("yyyy/MM/dd");
+            lvi.Text = dt2.ToString("yyyy/MM/dd");
             //填入星期
-            lvi.SubItems.Add(System.Globalization.DateTimeFormatInfo.CurrentInfo.DayNames[(byte)dt1.DayOfWeek]);
+            lvi.SubItems.Add(System.Globalization.DateTimeFormatInfo.CurrentInfo.DayNames[(byte)dt2.DayOfWeek]);
             //填入預測號碼
             string s = "";
             s = String.Join(",", source.Select(v => v.ToString()));
@@ -591,9 +591,14 @@ namespace lotto
                 Array.Clear(dst_ary, 0, 6);
                 hit = 0;
             }
+            lvi.UseItemStyleForSubItems = false;
+            Font fnt = new Font(lvi.Font, FontStyle.Bold);
             ListViewItem.ListViewSubItem vls4 = new ListViewItem.ListViewSubItem(lvi, hit3.ToString());
             ListViewItem.ListViewSubItem vls5 = new ListViewItem.ListViewSubItem(lvi, hit4.ToString());
             ListViewItem.ListViewSubItem vls6 = new ListViewItem.ListViewSubItem(lvi, hit5.ToString());
+            if (hit3 > 0) vls4.Font = fnt;
+            if (hit4 > 0) vls5.Font = fnt;
+            if (hit5 > 0) vls6.Font = fnt;
             lvi.SubItems.Add(vls4); lvi.SubItems.Add(vls5); lvi.SubItems.Add(vls6);
             int totalCost = (forcast.Length - 6) * 50;
             sumTotalCost += totalCost;
@@ -601,7 +606,13 @@ namespace lotto
             int totalInc = hit3 * 400 + hit4 * 1300 + hit5 * 25000;
             sumTotalIncome += totalInc;
             ListViewItem.ListViewSubItem vls8 = new ListViewItem.ListViewSubItem(lvi, Convert.ToString(totalInc));
+            
             ListViewItem.ListViewSubItem vls9 = new ListViewItem.ListViewSubItem(lvi, Convert.ToString(totalInc-totalCost));
+            if (totalInc - totalCost > 0)
+            {
+                
+                vls9.ForeColor = Color.Red;
+            }
             lvi.SubItems.Add(vls7); lvi.SubItems.Add(vls8); lvi.SubItems.Add(vls9);
         }
 
