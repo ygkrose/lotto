@@ -625,5 +625,38 @@ namespace lotto
             return _ary.ToArray();
         }
 
+        private void 線圖ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (listView1.SelectedItems.Count > 1)
+            {
+                chart1.Series.Clear();
+                //setChartView("收益線", r.ToArray());
+                Series series1 = new Series("收益線");
+                Random rnd = new Random(DateTime.Now.Second);
+                series1.Color = ColorTranslator.FromWin32(rnd.Next());
+                switch (sender.ToString())
+                {
+                    case "直方圖":
+                        series1.ChartType = SeriesChartType.Column;
+                        break;
+                    case "區域圖":
+                        series1.ChartType = SeriesChartType.Area;
+                        break;
+                    default:
+                        series1.ChartType = SeriesChartType.Line;
+                        break;
+                }
+                
+                series1.IsValueShownAsLabel = true;
+                //將數值新增至序列
+                for (int index = 0; index < listView1.SelectedItems.Count; index++)
+                {
+                    series1.Points.AddXY(listView1.SelectedItems[index].SubItems[0].Text,Convert.ToInt32(listView1.SelectedItems[index].SubItems[10].Text));
+                }
+                this.chart1.Series.Add(series1);
+                tabControl1.SelectedIndex = 0;
+            }         
+                
+        }
     }
 }

@@ -29,14 +29,14 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -110,6 +110,10 @@
             this.label8 = new System.Windows.Forms.Label();
             this.income = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.balance = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.線圖ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.直方圖ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.區域圖ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -134,13 +138,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            this.contextMenuStrip2.SuspendLayout();
             this.SuspendLayout();
             // 
             // dataGridView1
             // 
             this.dataGridView1.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
             this.dataGridView1.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -162,7 +167,7 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.RowTemplate.Height = 25;
-            this.dataGridView1.Size = new System.Drawing.Size(763, 234);
+            this.dataGridView1.Size = new System.Drawing.Size(844, 234);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             // 
@@ -233,8 +238,8 @@
             // Column9
             // 
             this.Column9.DataPropertyName = "nums";
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Blue;
-            this.Column9.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.Blue;
+            this.Column9.DefaultCellStyle = dataGridViewCellStyle7;
             this.Column9.HeaderText = "特別號";
             this.Column9.Name = "Column9";
             this.Column9.ReadOnly = true;
@@ -277,7 +282,7 @@
             this.tabPage1.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPage1.Size = new System.Drawing.Size(771, 560);
+            this.tabPage1.Size = new System.Drawing.Size(852, 560);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "歷史資料";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -295,7 +300,7 @@
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 42.83668F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 57.16332F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(767, 556);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(848, 556);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
             // panel1
@@ -305,7 +310,7 @@
             this.panel1.Location = new System.Drawing.Point(2, 240);
             this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(763, 314);
+            this.panel1.Size = new System.Drawing.Size(844, 314);
             this.panel1.TabIndex = 1;
             // 
             // splitContainer1
@@ -324,8 +329,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.chart1);
-            this.splitContainer1.Size = new System.Drawing.Size(763, 314);
-            this.splitContainer1.SplitterDistance = 113;
+            this.splitContainer1.Size = new System.Drawing.Size(844, 314);
+            this.splitContainer1.SplitterDistance = 124;
             this.splitContainer1.SplitterWidth = 6;
             this.splitContainer1.TabIndex = 3;
             // 
@@ -363,19 +368,19 @@
             // 
             // chart1
             // 
-            chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
+            chartArea2.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea2);
             this.chart1.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend1.Name = "Legend1";
-            this.chart1.Legends.Add(legend1);
+            legend2.Name = "Legend1";
+            this.chart1.Legends.Add(legend2);
             this.chart1.Location = new System.Drawing.Point(0, 0);
             this.chart1.Margin = new System.Windows.Forms.Padding(2);
             this.chart1.Name = "chart1";
-            series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.chart1.Series.Add(series1);
-            this.chart1.Size = new System.Drawing.Size(644, 314);
+            series2.ChartArea = "ChartArea1";
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            this.chart1.Series.Add(series2);
+            this.chart1.Size = new System.Drawing.Size(714, 314);
             this.chart1.TabIndex = 0;
             this.chart1.Text = "chart1";
             // 
@@ -528,8 +533,8 @@
             this.dataGridView2.AllowUserToAddRows = false;
             this.dataGridView2.AllowUserToDeleteRows = false;
             this.dataGridView2.AllowUserToOrderColumns = true;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.dataGridView2.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.dataGridView2.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle8;
             this.dataGridView2.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -601,8 +606,8 @@
             // Column20
             // 
             this.Column20.DataPropertyName = "avgs";
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.Column20.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.Column20.DefaultCellStyle = dataGridViewCellStyle9;
             this.Column20.HeaderText = "特別號";
             this.Column20.Name = "Column20";
             this.Column20.ReadOnly = true;
@@ -611,8 +616,8 @@
             // Column21
             // 
             this.Column21.DataPropertyName = "tavg";
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.Column21.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.Column21.DefaultCellStyle = dataGridViewCellStyle10;
             this.Column21.HeaderText = "總平均";
             this.Column21.Name = "Column21";
             this.Column21.ReadOnly = true;
@@ -768,6 +773,7 @@
             this.cost,
             this.income,
             this.balance});
+            this.listView1.ContextMenuStrip = this.contextMenuStrip2;
             this.listView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listView1.FullRowSelect = true;
             this.listView1.GridLines = true;
@@ -936,10 +942,10 @@
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(382, 3);
+            this.button6.Location = new System.Drawing.Point(368, 3);
             this.button6.Margin = new System.Windows.Forms.Padding(2);
             this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(75, 27);
+            this.button6.Size = new System.Drawing.Size(64, 27);
             this.button6.TabIndex = 1;
             this.button6.Text = "開始";
             this.button6.UseVisualStyleBackColor = true;
@@ -953,7 +959,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(490, 10);
+            this.label8.Location = new System.Drawing.Point(440, 10);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(0, 12);
             this.label8.TabIndex = 8;
@@ -965,6 +971,36 @@
             // balance
             // 
             this.balance.Text = "Balance";
+            // 
+            // contextMenuStrip2
+            // 
+            this.contextMenuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.線圖ToolStripMenuItem,
+            this.直方圖ToolStripMenuItem,
+            this.區域圖ToolStripMenuItem});
+            this.contextMenuStrip2.Name = "contextMenuStrip2";
+            this.contextMenuStrip2.Size = new System.Drawing.Size(153, 92);
+            // 
+            // 線圖ToolStripMenuItem
+            // 
+            this.線圖ToolStripMenuItem.Name = "線圖ToolStripMenuItem";
+            this.線圖ToolStripMenuItem.Size = new System.Drawing.Size(94, 22);
+            this.線圖ToolStripMenuItem.Text = "線圖";
+            this.線圖ToolStripMenuItem.Click += new System.EventHandler(this.線圖ToolStripMenuItem_Click);
+            // 
+            // 直方圖ToolStripMenuItem
+            // 
+            this.直方圖ToolStripMenuItem.Name = "直方圖ToolStripMenuItem";
+            this.直方圖ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.直方圖ToolStripMenuItem.Text = "直方圖";
+            this.直方圖ToolStripMenuItem.Click += new System.EventHandler(this.線圖ToolStripMenuItem_Click);
+            // 
+            // 區域圖ToolStripMenuItem
+            // 
+            this.區域圖ToolStripMenuItem.Name = "區域圖ToolStripMenuItem";
+            this.區域圖ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.區域圖ToolStripMenuItem.Text = "區域圖";
+            this.區域圖ToolStripMenuItem.Click += new System.EventHandler(this.線圖ToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -1003,6 +1039,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            this.contextMenuStrip2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1081,6 +1118,10 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.ColumnHeader income;
         private System.Windows.Forms.ColumnHeader balance;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip2;
+        private System.Windows.Forms.ToolStripMenuItem 線圖ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 直方圖ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 區域圖ToolStripMenuItem;
     }
 }
 
