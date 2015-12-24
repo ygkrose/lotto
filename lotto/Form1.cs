@@ -25,6 +25,7 @@ namespace lotto
             this.Height = 600;
             this.Left = 5;
             this.Top = 5;
+            this.StartPosition = FormStartPosition.CenterScreen;
             getMainTable();
             dataGridView1.DataSource = maintab;
             fillDateDataSource();

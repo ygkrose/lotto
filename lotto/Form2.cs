@@ -89,5 +89,11 @@ namespace lotto
             // If the ListBox has focus, draw a focus rectangle around the selected item.
             e.DrawFocusRectangle();
         }
+
+        private void Form2_ResizeEnd(object sender, EventArgs e)
+        {
+            listBox1.Refresh();
+            //listBox1_DrawItem(sender, null);
+        }
     }
 }
