@@ -122,6 +122,18 @@ namespace lotto
                .OrderByDescending(ody => ody);
             return dts.ToList();
         }
+        private List<DateTime> getAllDatebyDate(string sd,string ed)
+        {
+            sd = sd + "/1/1";
+            DateTime sd1 = Convert.ToDateTime(sd);
+            ed = ed + "/12/31";
+            DateTime ed1 = Convert.ToDateTime(ed);
+            var dts = maintab.AsEnumerable()
+               .Where(d=>d.Field<DateTime>("date")>=sd1 && d.Field<DateTime>("date") <= ed1)
+               .Select(c => c.Field<DateTime>("date"))
+               .OrderByDescending(ody => ody);
+            return dts.ToList();
+        }
 
         private void setGridViewHeader()
         {
@@ -284,13 +296,14 @@ namespace lotto
             DataRow[] drow = maintab.Select("date='" + date + "'");
             
             string[] ary = null;
-            ary = new string[6];
+            ary = new string[7];
             ary[0] = drow[0]["num1"].ToString();
             ary[1] = drow[0]["num2"].ToString();
             ary[2] = drow[0]["num3"].ToString();
             ary[3] = drow[0]["num4"].ToString();
             ary[4] = drow[0]["num5"].ToString();
             ary[5] = drow[0]["num6"].ToString();
+            ary[6] = drow[0]["nums"].ToString();
             //var sdata = maintab.AsEnumerable()
             //        .Where(dr => dr.Field<DateTime>("date") == Convert.ToDateTime(date))
             //        .Select(o => new { num1 = o.Field<int>("num1").ToString(), num2 = o.Field<int>("num2").ToString(), num3 = o.Field<int>("num3").ToString(), num4 = o.Field<int>("num4").ToString(), num5 = o.Field<int>("num5").ToString(), num6 = o.Field<int>("num6").ToString() });
@@ -474,32 +487,74 @@ namespace lotto
         {
             aggregate agg = new aggregate(maintab);
             listView1.BeginUpdate();
-            foreach (DateTime dt in getAllDate().OrderBy(p=>p))
+            List<DateTime> dts = getAllDatebyDate(numericUpDown2.Value.ToString(),numericUpDown3.Value.ToString());
+            totalhitrate = 0;
+            listView1.Items.Clear();
+            this.Cursor = Cursors.WaitCursor;
+            for (int i = dts.Count-1; i > 0; i--)
             {
-                string strDT = dt.ToString("yyyy/MM/dd");
+                string strDT = dts[i].ToString("yyyy/MM/dd");
                 IEnumerable<KeyValuePair<int, Dictionary<int, int>>> ss1 = agg.getBagData().Where(p => getNumbyDate(strDT).Contains(p.Key.ToString())).ToList();
-                fillListView(getSelCount(2, ss1), dt);
-                
+                fillListView(getSelCount((int)numericUpDown1.Value, ss1), dts[i], dts[i - 1]);
             }
+            this.Cursor = Cursors.Default;
             listView1.EndUpdate();
+            label8.Text = "總共" + (dts.Count-1).ToString() + "筆，中獎" + totalhitrate.ToString() + "筆，中獎率：" + Math.Round(((decimal)totalhitrate/ (dts.Count - 1)),3);
         }
 
-        private void fillListView(List<int> source,DateTime dt)
+
+        int totalhitrate = 0;
+        private void compareHitRate(List<int> v, string[] hitnums, ListViewItem lvi)
+        {
+            int hitcnt = 0;
+            foreach (int forcastnum in v)
+            {
+                if (hitnums.Contains(forcastnum.ToString()))
+                {
+                    hitcnt++;
+                }
+            }
+            lvi.UseItemStyleForSubItems = false;
+            ListViewItem.ListViewSubItem vls3 = new ListViewItem.ListViewSubItem(lvi, hitcnt.ToString());
+            if (hitcnt >= 3)
+            {
+                totalhitrate++;
+                vls3.ForeColor = Color.Red;
+                vls3.BackColor = Color.LightBlue;
+            }
+            lvi.SubItems.Add(vls3);
+        }
+
+        private void fillListView(List<int> source, DateTime dt1, DateTime dt2)
         {
             
             ListViewItem lvi = new ListViewItem();
-            lvi.Text = dt.ToString("yyyy/MM/dd");
-            
-            lvi.SubItems.Add(System.Globalization.DateTimeFormatInfo.CurrentInfo.DayNames[(byte)dt.DayOfWeek]);
+            lvi.Text = dt1.ToString("yyyy/MM/dd");
+            lvi.SubItems.Add(System.Globalization.DateTimeFormatInfo.CurrentInfo.DayNames[(byte)dt1.DayOfWeek]);
             string s = "";
             foreach (string n in source.Select(v => v.ToString()))
             {
                  s += n+",";
             }
-            ListViewItem.ListViewSubItem vls = new ListViewItem.ListViewSubItem();
-            lvi.SubItems.Add(s.Substring(0,s.Length-1)); 
-            lvi.SubItems.Add("");
+            ListViewItem.ListViewSubItem vls1 = new ListViewItem.ListViewSubItem(lvi,s.Substring(0,s.Length-1));
+            lvi.SubItems.Add(vls1);
+            string[] hitnums = getNumbyDate(dt2.ToString("yyyy/MM/dd"));
+            s = "";
+            foreach(string ss in hitnums)
+            {
+                s += ss + ",";
+            }
+            ListViewItem.ListViewSubItem vls2 = new ListViewItem.ListViewSubItem(lvi, s.Substring(0, s.Length - 1));
+            lvi.SubItems.Add(vls2);
+            compareHitRate(source, hitnums,lvi);
             listView1.Items.Add(lvi);
         }
+
+        private void numericUpDown2_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+ 
     }
 }
