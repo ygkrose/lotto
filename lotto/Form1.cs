@@ -648,11 +648,16 @@ namespace lotto
                 }
                 
                 series1.IsValueShownAsLabel = true;
+
+                double sum = 0;
+                
                 //將數值新增至序列
                 for (int index = 0; index < listView1.SelectedItems.Count; index++)
                 {
-                    series1.Points.AddXY(listView1.SelectedItems[index].SubItems[0].Text,Convert.ToInt32(listView1.SelectedItems[index].SubItems[10].Text));
+                    sum += Convert.ToInt32(listView1.SelectedItems[index].SubItems[10].Text);
+                    series1.Points.AddXY(listView1.SelectedItems[index].SubItems[0].Text, Convert.ToInt32(listView1.SelectedItems[index].SubItems[10].Text));
                 }
+                series1.Name = "總收益 " + sum.ToString();
                 this.chart1.Series.Add(series1);
                 tabControl1.SelectedIndex = 0;
             }         
