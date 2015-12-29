@@ -8,12 +8,14 @@ using System.Data.SqlClient;
 using System.Windows.Forms.DataVisualization.Charting;
 using System.Net;
 using System.Web.Script.Serialization;
+using Devart.Data.PostgreSql;
 
 namespace lotto
 {
     public partial class Form1 : Form
     {
         private SqlConnection conn;
+
         public Form1()
         {
             InitializeComponent();
@@ -31,16 +33,15 @@ namespace lotto
             fillDateDataSource();
         }
         DataTable maintab = new DataTable();
-        SqlDataAdapter sdp;
+        DataAdapter sdp;
         private void getMainTable()
         {
             conn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["lottoMaindata"].ToString());
-
             conn.Open();
-            sdp = new SqlDataAdapter("select * from maindata order by date", conn);
-            SqlCommandBuilder builder = new SqlCommandBuilder(sdp);
-            sdp.UpdateCommand = builder.GetUpdateCommand();
-            sdp.Fill(maintab);
+
+            sdp = new DataAdapter("select * from maindata order by date"); // new SqlDataAdapter("select * from maindata order by date", conn);
+            
+            sdp.Fill(ref maintab);
             //sdp.Dispose();
 
         }
@@ -48,7 +49,7 @@ namespace lotto
         private void uptAvg()
         {
             updateAvg(ref maintab);
-            sdp.Update(maintab);
+            sdp.Update(maintab, "select * from maindata order by date");
             MessageBox.Show("OK");
         }
 
@@ -102,8 +103,8 @@ namespace lotto
             {
                 //var avg1= maintab.AsEnumerable().Average(d => (int)d["num1"]);
 
-                sdp.SelectCommand.CommandText = "select A.* ,(A.avg1+A.avg2+A.avg3+A.avg4+A.avg5+A.avg6)/6 tavg from ( select  avg(num1) avg1,avg(num2) avg2,avg(num3) avg3,avg(num4) avg4,avg(num5) avg5,avg(num6) avg6,avg(nums) avgs from maindata) A";
-                sdp.Fill(tmpdtb);
+                sdp.CommandText = "select A.* ,(A.avg1+A.avg2+A.avg3+A.avg4+A.avg5+A.avg6)/6 tavg from ( select  avg(num1) avg1,avg(num2) avg2,avg(num3) avg3,avg(num4) avg4,avg(num5) avg5,avg(num6) avg6,avg(nums) avgs from maindata) A";
+                sdp.Fill(ref tmpdtb);
                 maxAppearNum(ref tmpdtb);
                 dataGridView2.DataSource = tmpdtb;
                 setGridViewHeader();
@@ -459,7 +460,7 @@ namespace lotto
         private void save2DB(object[] uptdata)
         {
             maintab.Rows.Add(uptdata);
-            sdp.Update(maintab);
+            sdp.Update(maintab, "select * from maindata order by date");
         }
 
         private List<string> targetDate()
@@ -479,7 +480,7 @@ namespace lotto
                 {
                     qryDate = dt_last.AddDays(4);
                 }
-                if (DateTime.Now > qryDate)
+                if (DateTime.Now > qryDate.AddHours(21))
                     rtn.Add(qryDate.ToString("yyyy/MM/dd"));
                 dt_last = qryDate;
             }
