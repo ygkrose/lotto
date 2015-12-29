@@ -479,7 +479,7 @@ namespace lotto
                 {
                     qryDate = dt_last.AddDays(4);
                 }
-                if (DateTime.Now > qryDate)
+                if (DateTime.Now > qryDate.AddHours(21))
                     rtn.Add(qryDate.ToString("yyyy/MM/dd"));
                 dt_last = qryDate;
             }
@@ -514,6 +514,7 @@ namespace lotto
             //填入星期
             lvi.SubItems.Add(System.Globalization.DateTimeFormatInfo.CurrentInfo.DayNames[(byte)dt2.DayOfWeek]);
             //填入預測號碼
+            //source = accurately(source);
             string s = "";
             s = String.Join(",", source.Select(v => v.ToString()));
             ListViewItem.ListViewSubItem vls1 = new ListViewItem.ListViewSubItem(lvi,s);
@@ -528,6 +529,7 @@ namespace lotto
             //呼叫組數中獎函式
             List<string> l = new List<string>();
             l.AddRange(hitnums);
+            
             source.Sort();
             spreadhitlist(source.ToArray(),l,lvi);
             //listView1加入當日結果值
@@ -549,7 +551,7 @@ namespace lotto
             ListViewItem.ListViewSubItem vls3 = new ListViewItem.ListViewSubItem(lvi, hitcnt.ToString());
             if (hitcnt >= 3)
             {
-                totalhitrate++;
+                //totalhitrate++;
                 vls3.ForeColor = Color.Red;
                 vls3.BackColor = Color.LightGray;
             }
@@ -611,7 +613,7 @@ namespace lotto
             ListViewItem.ListViewSubItem vls9 = new ListViewItem.ListViewSubItem(lvi, Convert.ToString(totalInc-totalCost));
             if (totalInc - totalCost > 0)
             {
-                
+                totalhitrate++;
                 vls9.ForeColor = Color.Red;
             }
             lvi.SubItems.Add(vls7); lvi.SubItems.Add(vls8); lvi.SubItems.Add(vls9);
@@ -676,6 +678,22 @@ namespace lotto
             ls.AddRange(listView1.SelectedItems[0].SubItems[3].Text.Split(new char[] { ',' }));
             Form2 fm2 = new Form2(listView1.SelectedItems[0].SubItems[2].Text,ls);
             fm2.ShowDialog();
+        }
+
+        private List<string> accurately(List<string> s)
+        {
+            List<string> rtn = new List<string>();
+            s.Sort();
+            for (int i = 0; i < s.Count ; i+=2)
+            {
+                if (i == s.Count - 1) { rtn.Add(s[i]); continue; }
+                decimal avg = Math.Truncate((decimal) (Convert.ToInt16(s[i]) + Convert.ToInt16(s[i + 1])) / 2);
+                rtn.Add(s[i]);
+                if (!rtn.Contains(avg.ToString("00")))
+                    rtn.Add(avg.ToString("00"));
+                rtn.Add(s[i + 1]);
+            }
+            return rtn;
         }
     }
 }
