@@ -528,7 +528,7 @@ namespace lotto
             //呼叫組數中獎函式
             List<string> l = new List<string>();
             l.AddRange(hitnums);
-            source.Sort();
+            if (checkBox1.Checked) source.Sort();
             spreadhitlist(source.ToArray(),l,lvi);
             //listView1加入當日結果值
             listView1.Items.Add(lvi);
@@ -551,7 +551,7 @@ namespace lotto
             {
                 totalhitrate++;
                 vls3.ForeColor = Color.Red;
-                vls3.BackColor = Color.LightGray;
+                //vls3.BackColor = Color.LightGray;
             }
             lvi.SubItems.Add(vls3);
         }
@@ -601,7 +601,7 @@ namespace lotto
             if (hit4 > 0) vls5.Font = fnt;
             if (hit5 > 0) vls6.Font = fnt;
             lvi.SubItems.Add(vls4); lvi.SubItems.Add(vls5); lvi.SubItems.Add(vls6);
-            int totalCost = (forcast.Length - 6) * 50;
+            int totalCost = (forcast.Length - 5) * 50;
             sumTotalCost += totalCost;
             ListViewItem.ListViewSubItem vls7 = new ListViewItem.ListViewSubItem(lvi, Convert.ToString(totalCost));
             int totalInc = hit3 * 400 + hit4 * 1300 + hit5 * 25000;
@@ -611,7 +611,7 @@ namespace lotto
             ListViewItem.ListViewSubItem vls9 = new ListViewItem.ListViewSubItem(lvi, Convert.ToString(totalInc-totalCost));
             if (totalInc - totalCost > 0)
             {
-                
+                vls9.BackColor = Color.LightGray;
                 vls9.ForeColor = Color.Red;
             }
             lvi.SubItems.Add(vls7); lvi.SubItems.Add(vls8); lvi.SubItems.Add(vls9);
@@ -674,7 +674,7 @@ namespace lotto
             }
             List<string> ls = new List<string>();
             ls.AddRange(listView1.SelectedItems[0].SubItems[3].Text.Split(new char[] { ',' }));
-            Form2 fm2 = new Form2(listView1.SelectedItems[0].SubItems[2].Text,ls);
+            Form2 fm2 = new Form2(listView1.SelectedItems[0].SubItems[2].Text,ls,checkBox1.Checked? true : false);
             fm2.ShowDialog();
         }
     }
