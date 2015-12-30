@@ -494,6 +494,7 @@ namespace lotto
             totalhitrate = 0;
             sumTotalCost = 0;
             sumTotalIncome = 0;
+            over3num = 0;
             listView1.Items.Clear();
             this.Cursor = Cursors.WaitCursor;
             for (int i = dts.Count-1; i > 0; i--)
@@ -504,7 +505,7 @@ namespace lotto
             }
             this.Cursor = Cursors.Default;
             listView1.EndUpdate();
-            label8.Text = "總共" + (dts.Count-1).ToString() + "筆，中獎" + totalhitrate.ToString() + "筆，中獎率：" + Math.Round(((decimal)totalhitrate/ (dts.Count - 1)),3) + ",總損益：" + (sumTotalIncome - sumTotalCost).ToString();
+            label8.Text = "總共" + (dts.Count-1).ToString() + "筆，中獎" + totalhitrate.ToString() + "筆，中獎率：" + Math.Round(((decimal)totalhitrate/ (dts.Count - 1)),3) + "\r\n猜中三號以上：" + over3num + "筆，總損益：" + (sumTotalIncome - sumTotalCost).ToString();
         }
 
         private void fillListView(List<string> source, DateTime dt1, DateTime dt2)
@@ -529,12 +530,11 @@ namespace lotto
             //呼叫組數中獎函式
             List<string> l = new List<string>();
             l.AddRange(hitnums);
-            if (checkBox1.Checked) source.Sort();
             spreadhitlist(source.ToArray(),l,lvi);
             //listView1加入當日結果值
             listView1.Items.Add(lvi);
         }
-
+        int over3num = 0;
         int totalhitrate = 0;
         private void compareHitRate(List<string> v, string[] hitnums, ListViewItem lvi)
         {
@@ -550,7 +550,7 @@ namespace lotto
             ListViewItem.ListViewSubItem vls3 = new ListViewItem.ListViewSubItem(lvi, hitcnt.ToString());
             if (hitcnt >= 3)
             {
-                //totalhitrate++;
+                over3num++;
                 vls3.ForeColor = Color.Red;
                 //vls3.BackColor = Color.LightGray;
             }
@@ -570,8 +570,10 @@ namespace lotto
             int hit3 = 0;
             int hit4 = 0;
             int hit5 = 0;
-            for (int i = 0; i <= forcast.Length - 6; i++)
+            int forcastlength = 0;
+            for (int i = 0; i <= forcast.Length - 6; i+=2)
             {
+                forcastlength++;
                 Array.Copy(forcast, i, dst_ary, 0, 6);
                 foreach (string s in dst_ary)
                 {
@@ -602,7 +604,7 @@ namespace lotto
             if (hit4 > 0) vls5.Font = fnt;
             if (hit5 > 0) vls6.Font = fnt;
             lvi.SubItems.Add(vls4); lvi.SubItems.Add(vls5); lvi.SubItems.Add(vls6);
-            int totalCost = (forcast.Length - 5) * 50;
+            int totalCost = forcastlength * 50;
             sumTotalCost += totalCost;
             ListViewItem.ListViewSubItem vls7 = new ListViewItem.ListViewSubItem(lvi, Convert.ToString(totalCost));
             int totalInc = hit3 * 400 + hit4 * 1300 + hit5 * 25000;
@@ -677,13 +679,14 @@ namespace lotto
             List<string> ls = new List<string>();
             ls.AddRange(listView1.SelectedItems[0].SubItems[3].Text.Split(new char[] { ',' }));
             Form2 fm2 = new Form2(listView1.SelectedItems[0].SubItems[2].Text,ls,checkBox1.Checked? true : false);
-            fm2.ShowDialog();
+            fm2.Show();
         }
 
         private List<string> accurately(List<string> s)
         {
             List<string> rtn = new List<string>();
-            s.Sort();
+            if (checkBox1.Checked) s.Sort();
+            if (!checkBox2.Checked) return s;
             for (int i = 0; i < s.Count ; i+=2)
             {
                 if (i == s.Count - 1) { rtn.Add(s[i]); continue; }

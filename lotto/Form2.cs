@@ -43,16 +43,19 @@ namespace lotto
             }
             string[] dst_ary = { "", "", "", "", "", "" };
             listBox1.Items.Add(String.Join("," , _forcast.ToArray()));
-            this.Text = "預測共" + Convert.ToString(src_ary.Length-5) + "組" ;
-            for (int i = 0; i <= src_ary.Length - 6 ; i++)
+            
+            int forcastlength = 0;
+            for (int i = 0; i <= src_ary.Length - 6 ; i+=2)
             {
+                forcastlength++;
                 Array.Copy(src_ary, i, dst_ary, 0, 6);
                 Array.Sort(dst_ary);
                 
                 listBox1.Items.Add(String.Join(",", dst_ary));
                 Array.Clear(dst_ary, 0, 6);
             }
-            
+            this.Text = "預測共" + forcastlength + "組";
+
         }
 
         private string[] rearrangeAry(string[] _array)
