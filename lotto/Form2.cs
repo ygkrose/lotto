@@ -14,6 +14,7 @@ namespace lotto
     {
         private string numsString = "";
         List<string> _forcast = null;
+        bool _sort = true;
 
         public Form2(string serial,List<string> forcast)
         {
@@ -22,12 +23,20 @@ namespace lotto
             _forcast = forcast;
         }
 
+        public Form2(string serial, List<string> forcast,bool sort)
+        {
+            InitializeComponent();
+            numsString = serial;
+            _forcast = forcast;
+            _sort = sort;
+        }
+
 
         private void Form2_Load(object sender, EventArgs e)
         {
             //this.ParentForm
             string[] src_ary = numsString.Split(new char[] { ',' });
-            Array.Sort(src_ary);
+            if (_sort) Array.Sort(src_ary);
             if (src_ary.Length > 5)
             {
                src_ary = rearrangeAry(src_ary);
