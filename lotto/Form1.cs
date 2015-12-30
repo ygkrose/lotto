@@ -689,10 +689,24 @@ namespace lotto
                 if (i == s.Count - 1) { rtn.Add(s[i]); continue; }
                 decimal avg = Math.Truncate((decimal) (Convert.ToInt16(s[i]) + Convert.ToInt16(s[i + 1])) / 2);
                 rtn.Add(s[i]);
-                //if (!rtn.Contains(avg.ToString("00")))
+                if (!rtn.Contains(avg.ToString("00")))
                     rtn.Add(avg.ToString("00"));
-                rtn.Add(s[i + 1]);
+                else
+                    rtn.Add((avg+1).ToString("00"));
+                if (!rtn.Contains(s[i + 1]))
+                    rtn.Add(s[i + 1]);
             }
+            //if (rtn.Count >= 15)
+            //{
+            //    List<string> rtn1 = new List<string>();
+            //    for (int j = 0; j < rtn.Count; j += 4)
+            //    {
+            //        rtn1.Add(rtn[j]);
+            //        if (j + 1 < rtn.Count) rtn1.Add(rtn[j + 1]);
+            //        if (j + 2 < rtn.Count) rtn1.Add(rtn[j+2]);
+            //    }
+            //    return rtn1;
+            //}
             return rtn;
         }
     }
