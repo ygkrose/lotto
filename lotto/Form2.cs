@@ -15,6 +15,7 @@ namespace lotto
         private string numsString = "";
         List<string> _forcast = null;
         bool _sort = true;
+        int _step = 1;
 
         public Form2(string serial,List<string> forcast)
         {
@@ -23,12 +24,13 @@ namespace lotto
             _forcast = forcast;
         }
 
-        public Form2(string serial, List<string> forcast,bool sort)
+        public Form2(string serial, List<string> forcast,bool sort,int step)
         {
             InitializeComponent();
             numsString = serial;
             _forcast = forcast;
             _sort = sort;
+            _step = step;
         }
 
 
@@ -45,7 +47,7 @@ namespace lotto
             listBox1.Items.Add(String.Join("," , _forcast.ToArray()));
             
             int forcastlength = 0;
-            for (int i = 0; i <= src_ary.Length - 6 ; i+=2)
+            for (int i = 0; i <= src_ary.Length - 6 ; i+= _step)
             {
                 forcastlength++;
                 Array.Copy(src_ary, i, dst_ary, 0, 6);

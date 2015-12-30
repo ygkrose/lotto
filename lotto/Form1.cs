@@ -571,7 +571,7 @@ namespace lotto
             int hit4 = 0;
             int hit5 = 0;
             int forcastlength = 0;
-            for (int i = 0; i <= forcast.Length - 6; i+=2)
+            for (int i = 0; i <= forcast.Length - 6; i+=(int)numericUpDown4.Value)
             {
                 forcastlength++;
                 Array.Copy(forcast, i, dst_ary, 0, 6);
@@ -678,7 +678,7 @@ namespace lotto
             }
             List<string> ls = new List<string>();
             ls.AddRange(listView1.SelectedItems[0].SubItems[3].Text.Split(new char[] { ',' }));
-            Form2 fm2 = new Form2(listView1.SelectedItems[0].SubItems[2].Text,ls,checkBox1.Checked? true : false);
+            Form2 fm2 = new Form2(listView1.SelectedItems[0].SubItems[2].Text,ls,checkBox1.Checked? true : false,(int)numericUpDown4.Value);
             fm2.Show();
         }
 
