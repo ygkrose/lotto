@@ -401,8 +401,8 @@ namespace lotto
                 if (comboBox2.Text.Trim().Length > 0)
                 {
                     DataRow[] dr = maintab.Select("date='" + Convert.ToDateTime(comboBox2.Text.Trim()) + "'");
-                    int nextid = Convert.ToInt32(dr[0][0]) + 1;
-                    dr = maintab.Select("period='" + nextid.ToString() + "'");
+                    
+                    dr = maintab.Select("date>'" + comboBox2.Text.Trim() + "'");
                     if (dr.Length > 0)
                     {
                         for (int i = 2; i <= 8; i++)
@@ -687,6 +687,7 @@ namespace lotto
             List<string> rtn = new List<string>();
             if (checkBox1.Checked) s.Sort();
             if (!checkBox2.Checked) return s;
+            //增加兩兩平均數
             for (int i = 0; i < s.Count ; i+=2)
             {
                 if (i == s.Count - 1) { rtn.Add(s[i]); continue; }
