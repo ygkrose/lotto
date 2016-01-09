@@ -9,15 +9,16 @@ namespace lotto
 {
     class aggregate
     {
-        private DataTable mainTab = null;
+        private string PopulationSDate = "2004/1/1";
+        private string PopulationEDate = "2015/12/31";
         private int[][] allnum; //[no][0~5] 記錄各期的6個號碼
         private Dictionary<int, Dictionary<int,int>> aggBag = new Dictionary<int, Dictionary<int,int>>(); //<號碼,<下一期號碼,累加出現次數>>
         private const int bignum = 49;
 
         public aggregate(DataTable dtb)
         {
-            mainTab = dtb;
-            var allserial = from r in mainTab.AsEnumerable()
+            DataRow[] dra = dtb.Select("'" +PopulationSDate + "' < date and date <'" + PopulationEDate + "'");
+            var allserial = from r in dra.AsEnumerable()
                             select new[] {
                                 r.Field<int>("num1"),
                                 r.Field<int>("num2"),
@@ -78,9 +79,10 @@ namespace lotto
             return aggBag;
         }
 
-        public Dictionary<int, Dictionary<int, int>> getSpecBagData()
+        public Dictionary<int, Dictionary<int, int>> getSpecBagData(DataTable dtb)
         {
-            var specnum = from r in mainTab.AsEnumerable()
+            DataRow[] dra = dtb.Select("'" + PopulationSDate + "' < date and date < '" + PopulationEDate + "'");
+            var specnum = from r in dra.AsEnumerable()
                           select new[] {
                                 r.Field<int>("nums")};
             allnum = specnum.ToArray();

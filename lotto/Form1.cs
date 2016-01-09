@@ -288,7 +288,7 @@ namespace lotto
             }
             sumColumn();
             //特別號累加
-            IEnumerable<KeyValuePair<int, Dictionary<int, int>>> specbag = agg.getSpecBagData().OrderBy(r => r.Key);
+            IEnumerable<KeyValuePair<int, Dictionary<int, int>>> specbag = agg.getSpecBagData(maintab).OrderBy(r => r.Key);
             listBox2.Items.AddRange(addUIData(specbag).ToArray());
         }
 
