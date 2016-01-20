@@ -441,10 +441,14 @@ namespace lotto
         private void getfromJson(string url)
         {
             WebClient wc = new WebClient();
-            string json = wc.DownloadString(url);
+            wc.DownloadStringCompleted += Wc_DownloadStringCompleted;
+            wc.DownloadStringAsync(new Uri(url));
+        }
 
+        private void Wc_DownloadStringCompleted(object sender, DownloadStringCompletedEventArgs e)
+        {
             JavaScriptSerializer parser = new JavaScriptSerializer();
-            dynamic info = parser.Deserialize<dynamic>(json);
+            dynamic info = parser.Deserialize<dynamic>(e.Result);
             double avg = 0.0;
             foreach (string sn in info["ordernum"])
             {
@@ -452,8 +456,8 @@ namespace lotto
             }
             avg = Math.Round(avg / 6);
             int range = Convert.ToInt32(info["ordernum"][5]) - Convert.ToInt32(info["ordernum"][0]);
-            string s = info["period"] + "," + info["adate"] + "," + info["ordernum"][0] + "," + info["ordernum"][1] + "," + info["ordernum"][2] + "," + info["ordernum"][3] + "," + info["ordernum"][4] + "," + info["ordernum"][5] + "," + info["specialnum"] +"," + avg.ToString() + "," +range.ToString() ;
-            save2DB(s.Split(new char[] { ','}));
+            string s = info["period"] + "," + info["adate"] + "," + info["ordernum"][0] + "," + info["ordernum"][1] + "," + info["ordernum"][2] + "," + info["ordernum"][3] + "," + info["ordernum"][4] + "," + info["ordernum"][5] + "," + info["specialnum"] + "," + avg.ToString() + "," + range.ToString();
+            save2DB(s.Split(new char[] { ',' }));
         }
 
         private void save2DB(object[] uptdata)
