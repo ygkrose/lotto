@@ -8,6 +8,7 @@ using System.Data.SqlClient;
 using System.Windows.Forms.DataVisualization.Charting;
 using System.Net;
 using System.Web.Script.Serialization;
+using System.Threading.Tasks;
 
 namespace lotto
 {
@@ -440,15 +441,12 @@ namespace lotto
 
         private void getfromJson(string url)
         {
-            WebClient wc = new WebClient();
-            wc.DownloadStringCompleted += Wc_DownloadStringCompleted;
-            wc.DownloadStringAsync(new Uri(url));
-        }
-
-        private void Wc_DownloadStringCompleted(object sender, DownloadStringCompletedEventArgs e)
-        {
+            WebClient wc =  new WebClient();
+            //Task<string> _json = wc.DownloadStringTaskAsync(new Uri(url));
+            //string data = await _json;
+            string data = wc.DownloadString(url);
             JavaScriptSerializer parser = new JavaScriptSerializer();
-            dynamic info = parser.Deserialize<dynamic>(e.Result);
+            dynamic info = parser.Deserialize<dynamic>(data);
             double avg = 0.0;
             foreach (string sn in info["ordernum"])
             {
@@ -459,6 +457,7 @@ namespace lotto
             string s = info["period"] + "," + info["adate"] + "," + info["ordernum"][0] + "," + info["ordernum"][1] + "," + info["ordernum"][2] + "," + info["ordernum"][3] + "," + info["ordernum"][4] + "," + info["ordernum"][5] + "," + info["specialnum"] + "," + avg.ToString() + "," + range.ToString();
             save2DB(s.Split(new char[] { ',' }));
         }
+
 
         private void save2DB(object[] uptdata)
         {
