@@ -131,7 +131,7 @@ namespace lotto
             ed = ed + "/12/31";
             DateTime ed1 = Convert.ToDateTime(ed);
             var dts = maintab.AsEnumerable()
-               .Where(d=>d.Field<DateTime>("date")>=sd1 && d.Field<DateTime>("date") <= ed1)
+               .Where(d => d.Field<DateTime>("date") >= sd1 && d.Field<DateTime>("date") <= ed1)
                .Select(c => c.Field<DateTime>("date"))
                .OrderByDescending(ody => ody);
             return dts.ToList();
@@ -439,12 +439,12 @@ namespace lotto
             MessageBox.Show("更新完畢共" + _date.Count.ToString()+"筆\r\n" + "成功：" + (success.Trim().Length==0?"無":success.Replace(" ",",")) + "\r\n失敗：" + (fail.Trim().Length==0?"無":fail ));
         }
 
-        private void getfromJson(string url)
+        private async void getfromJson(string url)
         {
-            WebClient wc =  new WebClient();
-            //Task<string> _json = wc.DownloadStringTaskAsync(new Uri(url));
-            //string data = await _json;
-            string data = wc.DownloadString(url);
+            WebClient wc = new WebClient();
+            Task<string> _json = wc.DownloadStringTaskAsync(new Uri(url));
+            string data = await _json;
+            //string data = wc.DownloadString(url);
             JavaScriptSerializer parser = new JavaScriptSerializer();
             dynamic info = parser.Deserialize<dynamic>(data);
             double avg = 0.0;
@@ -508,7 +508,8 @@ namespace lotto
             }
             this.Cursor = Cursors.Default;
             listView1.EndUpdate();
-            label8.Text = "總共" + (dts.Count-1).ToString() + "筆，中獎" + totalhitrate.ToString() + "筆，中獎率：" + Math.Round(((decimal)totalhitrate/ (dts.Count - 1)),3) + "\r\n猜中三號以上：" + over3num + "筆，總損益：" + (sumTotalIncome - sumTotalCost).ToString();
+            decimal hitr = dts.Count<=1? 0 : Math.Round(((decimal)totalhitrate / (dts.Count - 1)), 3);
+            label8.Text = "總共" + (dts.Count-1).ToString() + "筆，中獎" + totalhitrate.ToString() + "筆，中獎率：" + hitr + "\r\n猜中三號以上：" + over3num + "筆，總損益：" + (sumTotalIncome - sumTotalCost).ToString();
         }
 
         private void fillListView(List<string> source, DateTime dt1, DateTime dt2)
