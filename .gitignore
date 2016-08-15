@@ -6,3 +6,5 @@
 /lotto/obj
 /lotto/bin/Release
 /.vs/lotto/v14/.suo
+bin
+.vs
