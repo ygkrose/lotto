@@ -16,13 +16,13 @@ namespace lotto
     public partial class Form1 : Form
     {
         private SqlConnection conn;
-        public delegate void popmsg(int cnt);
+        public delegate void popmsg(int cnt,string errmsg="");
         public popmsg showpopmsg ;
         public downloadprocess dlp;
         public Form1()
         {
             InitializeComponent();
-            showpopmsg = new popmsg((s) => {
+            showpopmsg = new popmsg((s,e) => {
                 dlp.progressBar1.Value += s;
                 dlp.label1.Text = dlp.progressBar1.Value + "/" + dlp.progressBar1.Maximum;
                 if (dlp.progressBar1.Value == dlp.progressBar1.Maximum)
@@ -30,7 +30,8 @@ namespace lotto
                     dlp.Dispose();
                     chart1.Visible = true;
                 }
-                    
+                else if (!string.IsNullOrEmpty(e))
+                    MessageBox.Show(e);
             });
         }
 
@@ -438,6 +439,7 @@ namespace lotto
         private void button5_Click(object sender, EventArgs e)
         {
             List<string> _date = targetDate();
+            if (_date.Count == 0) { MessageBox.Show("資料已是最新!");return; }
             string success = "";
             string fail = "";
             Cursor = Cursors.WaitCursor;
@@ -445,7 +447,7 @@ namespace lotto
             dlp = new downloadprocess();
             dlp.Width = splitContainer1.Panel2.Width;
             dlp.Dock = DockStyle.Top;
-            dlp.progressBar1.Maximum = _date.Count;
+            dlp.progressBar1.Maximum = _date.Count ;
             splitContainer1.Panel2.Controls.Add(dlp);
 
             //平行+非同步最快
@@ -460,12 +462,18 @@ namespace lotto
                         //getfromJson(url);
                         int rtn = await getfromJsonAsync(url);
                         success += cdate + " ";
-                        this.Invoke(showpopmsg, rtn);
+                        object[] o = new object[2];
+                        o[0] = rtn;
+                        o[1] = "";
+                        this.Invoke(showpopmsg, o);
                     }
                     catch (Exception err)
                     {
-                        fail = cdate + ":" + err.Message ;
-                        //this.Invoke(showpopmsg,fail);
+                        fail = cdate + ":" + err.Message;
+                        object[] o = new object[2];
+                        o[0] = 0;
+                        o[1] = fail;
+                        this.Invoke(showpopmsg,o);
                     }
                 });
             });
