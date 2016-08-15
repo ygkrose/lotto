@@ -16,9 +16,22 @@ namespace lotto
     public partial class Form1 : Form
     {
         private SqlConnection conn;
+        public delegate void popmsg(int cnt);
+        public popmsg showpopmsg ;
+        public downloadprocess dlp;
         public Form1()
         {
             InitializeComponent();
+            showpopmsg = new popmsg((s) => {
+                dlp.progressBar1.Value += s;
+                dlp.label1.Text = dlp.progressBar1.Value + "/" + dlp.progressBar1.Maximum;
+                if (dlp.progressBar1.Value == dlp.progressBar1.Maximum)
+                {
+                    dlp.Dispose();
+                    chart1.Visible = true;
+                }
+                    
+            });
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -428,23 +441,17 @@ namespace lotto
             string success = "";
             string fail = "";
             Cursor = Cursors.WaitCursor;
-            //使用非同步較平行慢但不鎖屏
-            //foreach (string cdate in _date)
-            //{
-            //    string url = @"http://jigang-xitun.rhcloud.com/date/" + cdate;
-            //    try
-            //    {
-            //        int rtn = await getfromJsonAsync(url);
-            //        success += cdate + " ";
-            //    }
-            //    catch (Exception err)
-            //    {
-            //        fail += cdate + " ";
-            //    }
-            //}
+            chart1.Visible = false;
+            dlp = new downloadprocess();
+            dlp.Width = splitContainer1.Panel2.Width;
+            dlp.Dock = DockStyle.Top;
+            dlp.progressBar1.Maximum = _date.Count;
+            splitContainer1.Panel2.Controls.Add(dlp);
 
             //平行+非同步最快
-            Task t = new Task(() => {
+            #region async+parallel
+            Task t = new Task(() =>
+            {
                 var r = Parallel.ForEach(_date, async (cdate) =>
                 {
                     string url = @"http://jigang-xitun.rhcloud.com/date/" + cdate;
@@ -453,20 +460,39 @@ namespace lotto
                         //getfromJson(url);
                         int rtn = await getfromJsonAsync(url);
                         success += cdate + " ";
+                        this.Invoke(showpopmsg, rtn);
                     }
                     catch (Exception err)
                     {
-                        fail += cdate + " ";
+                        fail = cdate + ":" + err.Message ;
+                        //this.Invoke(showpopmsg,fail);
                     }
                 });
             });
             t.Start();
+            #endregion
+            
+            //MessageBox.Show("All down");
 
-            while (t.Status != TaskStatus.RanToCompletion)
-            {
-                t.Wait(100);
-            }
-            MessageBox.Show("All down");
+            #region async
+            //使用非同步較平行慢但不鎖屏
+            //Task t = new Task(async () => {
+            //    foreach (string cdate in _date)
+            //    {
+            //        string url = @"http://jigang-xitun.rhcloud.com/date/" + cdate;
+            //        try
+            //        {
+            //            int rtn = await getfromJsonAsync(url);
+            //            success += cdate + " ";
+            //        }
+            //        catch (Exception err)
+            //        {
+            //            fail += cdate + " ";
+            //        }
+            //    }
+            //});
+            #endregion
+            #region sync
             //foreach (string sd in _date)
             //{
             //    string url = @"http://jigang-xitun.rhcloud.com/date/" + sd;
@@ -480,15 +506,14 @@ namespace lotto
             //        MessageBox.Show("更新"+ sd + "失敗，錯誤訊息:" +err.Message);
             //    }
             //}
+            #endregion
             Cursor = Cursors.Default;
-            MessageBox.Show("更新完畢共" + _date.Count.ToString() + "筆\r\n" + "成功：" + (success.Trim().Length == 0 ? "無" : success.Replace(" ", ",")) + "\r\n失敗：" + (fail.Trim().Length == 0 ? "無" : fail));
+            //MessageBox.Show("更新完畢共" + _date.Count.ToString() + "筆\r\n" + "成功：" + (success.Trim().Length == 0 ? "無" : success.Replace(" ", ",")) + "\r\n失敗：" + (fail.Trim().Length == 0 ? "無" : fail));
         }
 
         private void getfromJson(string url)
         {
             WebClient wc = new WebClient();
-            //Task<string> _json = wc.DownloadStringTaskAsync(new Uri(url));
-            //string data = await _json;
             string data = wc.DownloadString(url);
             JavaScriptSerializer parser = new JavaScriptSerializer();
             dynamic info = parser.Deserialize<dynamic>(data);
