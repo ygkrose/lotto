@@ -9,6 +9,7 @@ using System.Windows.Forms.DataVisualization.Charting;
 using System.Net;
 using System.Web.Script.Serialization;
 using System.Threading.Tasks;
+using System.Net.Http;
 
 namespace lotto
 {
@@ -35,8 +36,13 @@ namespace lotto
         SqlDataAdapter sdp;
         private void getMainTable()
         {
-            conn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["lottoMaindata"].ToString());
 
+            
+#if DEBUG
+            conn=new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\VSProjects\biglotto\lotto\lotto.mdf;Integrated Security=True;Connect Timeout=30");
+#else
+            conn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["lottoMaindata"].ToString());
+#endif
             conn.Open();
             sdp = new SqlDataAdapter("select * from maindata order by date", conn);
             SqlCommandBuilder builder = new SqlCommandBuilder(sdp);
@@ -422,29 +428,68 @@ namespace lotto
             string success = "";
             string fail = "";
             Cursor = Cursors.WaitCursor;
-            foreach (string sd in _date)
-            {
-                string url = @"http://jigang-xitun.rhcloud.com/date/" + sd;
-                try {
-                    getfromJson(url);
-                    success += sd + " " ;
-                }
-                catch (Exception err)
+            //使用非同步較平行慢但不鎖屏
+            //foreach (string cdate in _date)
+            //{
+            //    string url = @"http://jigang-xitun.rhcloud.com/date/" + cdate;
+            //    try
+            //    {
+            //        int rtn = await getfromJsonAsync(url);
+            //        success += cdate + " ";
+            //    }
+            //    catch (Exception err)
+            //    {
+            //        fail += cdate + " ";
+            //    }
+            //}
+
+            //平行+非同步最快
+            Task t = new Task(() => {
+                var r = Parallel.ForEach(_date, async (cdate) =>
                 {
-                    fail += sd + " ";
-                    MessageBox.Show("更新"+ sd + "失敗，錯誤訊息:" +err.Message);
-                }
+                    string url = @"http://jigang-xitun.rhcloud.com/date/" + cdate;
+                    try
+                    {
+                        //getfromJson(url);
+                        int rtn = await getfromJsonAsync(url);
+                        success += cdate + " ";
+                    }
+                    catch (Exception err)
+                    {
+                        fail += cdate + " ";
+                    }
+                });
+            });
+            t.Start();
+
+            while (t.Status != TaskStatus.RanToCompletion)
+            {
+                t.Wait(100);
             }
+            MessageBox.Show("All down");
+            //foreach (string sd in _date)
+            //{
+            //    string url = @"http://jigang-xitun.rhcloud.com/date/" + sd;
+            //    try {
+            //        getfromJson(url);
+            //        success += sd + " " ;
+            //    }
+            //    catch (Exception err)
+            //    {
+            //        fail += sd + " ";
+            //        MessageBox.Show("更新"+ sd + "失敗，錯誤訊息:" +err.Message);
+            //    }
+            //}
             Cursor = Cursors.Default;
-            MessageBox.Show("更新完畢共" + _date.Count.ToString()+"筆\r\n" + "成功：" + (success.Trim().Length==0?"無":success.Replace(" ",",")) + "\r\n失敗：" + (fail.Trim().Length==0?"無":fail ));
+            MessageBox.Show("更新完畢共" + _date.Count.ToString() + "筆\r\n" + "成功：" + (success.Trim().Length == 0 ? "無" : success.Replace(" ", ",")) + "\r\n失敗：" + (fail.Trim().Length == 0 ? "無" : fail));
         }
 
-        private async void getfromJson(string url)
+        private void getfromJson(string url)
         {
             WebClient wc = new WebClient();
-            Task<string> _json = wc.DownloadStringTaskAsync(new Uri(url));
-            string data = await _json;
-            //string data = wc.DownloadString(url);
+            //Task<string> _json = wc.DownloadStringTaskAsync(new Uri(url));
+            //string data = await _json;
+            string data = wc.DownloadString(url);
             JavaScriptSerializer parser = new JavaScriptSerializer();
             dynamic info = parser.Deserialize<dynamic>(data);
             double avg = 0.0;
@@ -458,11 +503,31 @@ namespace lotto
             save2DB(s.Split(new char[] { ',' }));
         }
 
+        private async Task<int> getfromJsonAsync(string url)
+        {
+            HttpClient hc = new HttpClient();
+            string result = await hc.GetStringAsync(url);
+            JavaScriptSerializer parser = new JavaScriptSerializer();
+            dynamic info = parser.Deserialize<dynamic>(result);
+            double avg = 0.0;
+            foreach (string sn in info["ordernum"])
+            {
+                avg += Convert.ToInt32(sn);
+            }
+            avg = Math.Round(avg / 6);
+            int range = Convert.ToInt32(info["ordernum"][5]) - Convert.ToInt32(info["ordernum"][0]);
+            string s = info["period"] + "," + info["adate"] + "," + info["ordernum"][0] + "," + info["ordernum"][1] + "," + info["ordernum"][2] + "," + info["ordernum"][3] + "," + info["ordernum"][4] + "," + info["ordernum"][5] + "," + info["specialnum"] + "," + avg.ToString() + "," + range.ToString();
+            save2DB(s.Split(new char[] { ',' }));
+            return 1;
+        }
+
 
         private void save2DB(object[] uptdata)
         {
-            maintab.Rows.Add(uptdata);
-            sdp.Update(maintab);
+            lock (maintab) {
+                maintab.Rows.Add(uptdata);
+                sdp.Update(maintab);
+            }
         }
 
         private List<string> targetDate()
@@ -483,7 +548,7 @@ namespace lotto
                     qryDate = dt_last.AddDays(4);
                 }
                 if (DateTime.Now > qryDate.AddHours(21))
-                    rtn.Add(qryDate.ToString("yyyy/MM/dd"));
+                    rtn.Add(qryDate.ToString("yyyy/M/dd"));
                 dt_last = qryDate;
             }
             return rtn;

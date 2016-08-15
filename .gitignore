@@ -3,3 +3,7 @@
 ################################################################################
 
 /lotto/bin/Debug
+/lotto/obj/Debug
+/lotto/bin/Release
+/.vs/lotto/v14/.suo
+/lotto/obj/Release
