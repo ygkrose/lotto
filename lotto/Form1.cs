@@ -416,24 +416,7 @@ namespace lotto
 
         private void contextMenuStrip1_MouseClick(object sender, MouseEventArgs e)
         {
-            if (listBox3.Items.Count > 0)
-            {
-                List<string> nextserial = new List<string>();
-                if (comboBox2.Text.Trim().Length > 0)
-                {
-                    DataRow[] dr = maintab.Select("date='" + Convert.ToDateTime(comboBox2.Text.Trim()) + "'");
-                    
-                    dr = maintab.Select("date>'" + comboBox2.Text.Trim() + "'");
-                    if (dr.Length > 0)
-                    {
-                        for (int i = 2; i <= 8; i++)
-                            nextserial.Add(dr[0][i].ToString().Length == 1 ? "0" + dr[0][i].ToString() : dr[0][i].ToString());
-                    }
-
-                }
-                Form2 fm = new Form2(listBox3.Items[0].ToString(), nextserial);
-                fm.Show();
-            }
+           
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -814,6 +797,33 @@ namespace lotto
             //    return rtn1;
             //}
             return rtn;
+        }
+
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            if (listBox3.Items.Count > 0)
+            {
+                List<string> nextserial = new List<string>();
+                if (comboBox2.Text.Trim().Length > 0)
+                {
+                    DataRow[] dr = maintab.Select("date='" + Convert.ToDateTime(comboBox2.Text.Trim()) + "'");
+
+                    dr = maintab.Select("date>'" + comboBox2.Text.Trim() + "'");
+                    if (dr.Length > 0)
+                    {
+                        for (int i = 2; i <= 8; i++)
+                            nextserial.Add(dr[0][i].ToString().Length == 1 ? "0" + dr[0][i].ToString() : dr[0][i].ToString());
+                    }
+
+                }
+                Form2 fm = new Form2(listBox3.Items[0].ToString(), nextserial);
+                fm.Show();
+            }
+        }
+
+        private void 複製ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Clipboard.SetText(listBox3.Items[0].ToString());
         }
     }
 }
